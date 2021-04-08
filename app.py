@@ -3,9 +3,13 @@ import json
 
 app = Flask(__name__)
 
+def read_data():
+    with open('data.json') as json_file:
+        datas = json.load(json_file)
+    return datas
+
 #initialize the data with the file data
-with open('data.json') as json_file:
-    datas = json.load(json_file)
+datas = read_data()
 
 @app.errorhandler(404)
 def resource_not_found(e):
@@ -18,6 +22,7 @@ def hello_world():
 @app.route('/networks/harmony')
 def harmony_data():
     try:
+        datas = read_data()
         return datas[0]
     except:
         abort(404, description="Harmony ressource not found")
@@ -25,6 +30,7 @@ def harmony_data():
 @app.route('/networks/solana')
 def solana_data():
     try:
+        datas = read_data()
         return datas[1]
     except:
         abort(404, description="Solana ressource not found")
@@ -32,6 +38,7 @@ def solana_data():
 @app.route('/networks/avalanche')
 def avalanche_data():
     try:
+        datas = read_data()
         return datas[2]
     except:
         abort(404, description="Avalanche ressource not found")
@@ -39,6 +46,7 @@ def avalanche_data():
 @app.route('/networks/thegraph')
 def thegraph_data():
     try:
+        datas = read_data()
         return datas[3]
     except:
         abort(404, description="The Graph ressource not found")
@@ -46,14 +54,15 @@ def thegraph_data():
 @app.route('/networks/stafi')
 def stafi_data():
     try:
+        datas = read_data()
         return datas[4]
     except:
         abort(404, description="Stafi ressource not found")
 
-
 @app.route('/networks')
 def all():
     try:
+        datas = read_data()
         return jsonify(datas)
     except:
-        abort(404, description="Solana ressource not found")
+        abort(404, description="Networks ressource not found")
