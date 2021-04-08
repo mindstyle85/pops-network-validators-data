@@ -16,13 +16,6 @@
                 "Fees": "5",
                 "Delegation": "245430000",
                 "Stake_link": "https://staking.harmony.one/validators/mainnet/one1kf42rl6yg2avkjsu34ch2jn8yjs64ycn4n9wdj"
-            },
-            {
-                "Address": "one19ugus2az5a9m8tcgeq2pazcdht5kn3pe86434u",
-                "Name": "Stakehere",
-                "Fees": "10",
-                "Delegation": "15000000",
-                "Stake_link": "https://staking.harmony.one/validators/mainnet/one19ugus2az5a9m8tcgeq2pazcdht5kn3pe86434u"
             }
         ]
     },
