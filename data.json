@@ -6,7 +6,7 @@
         "Fees" : "5",
         "APY": "11,90",
         "Info": "Harmony insert decription",
-        "Total_delegagation" : "245430000",
+        "Total_delegation" : "245430000 ONE",
         "Project_website" : "https://www.harmony.one",
         "Project_documentations" : ["https://docs.harmony.one/home/", "https://medium.com/harmony"],
         "Validators": [
@@ -14,7 +14,7 @@
                 "Address": "one1kf42rl6yg2avkjsu34ch2jn8yjs64ycn4n9wdj",
                 "Name": "P-OPS Team Validator",
                 "Fees": "5",
-                "Delegation": "245430000",
+                "Delegation": "245430000 ONE",
                 "Stake_link": "https://staking.harmony.one/validators/mainnet/one1kf42rl6yg2avkjsu34ch2jn8yjs64ycn4n9wdj"
             }
         ]
@@ -26,7 +26,7 @@
         "APY": "25",
         "Fees" : "10",
         "Info": "Solana insert decription",
-        "Total_delegagation" : "681777",
+        "Total_delegation" : "681777",
         "Project_website" : "https://www.solana.com",
         "Project_documentations" : ["https://docs.solana.com/", "https://solanalabs.medium.com/"],
         "Validators": [
@@ -34,21 +34,21 @@
                 "Address": "DTF5DM36Jc4vkVPJXbSm7wRLe6eeX1UWo72WQhxKJpR",
                 "Name": "mindstyle | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "229730",
+                "Delegation": "229730 SOL",
                 "Stake_link": "https://www.validators.app/validators/mainnet/DTF5DM36Jc4vkVPJXbSm7wRLe6eeX1UWo72WQhxKJpR2?locale=en&order=score&refresh="
             },
             {
                 "Address": "9q16BB7WGmBxf1nJTdxH5zPnBUhtHqdqXqRFjSjuM4k7",
                 "Name": "JB273 | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "233320",
+                "Delegation": "233320 SOL",
                 "Stake_link": "https://www.validators.app/validators/mainnet/9q16BB7WGmBxf1nJTdxH5zPnBUhtHqdqXqRFjSjuM4k7?locale=en&order=score&refresh="
             },
              {
                 "Address": "HwdfNWCqP2vXRvaHqQhoVUM2uPndaY8DDJzzBxCoPNHU",
                 "Name": "yellowsin | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "218727",
+                "Delegation": "218727 SOL",
                 "Stake_link": "https://www.validators.app/validators/mainnet/HwdfNWCqP2vXRvaHqQhoVUM2uPndaY8DDJzzBxCoPNHU?locale=en&order=score&refresh="
             }
         ]
@@ -60,7 +60,7 @@
         "APY": "11",
         "Fees" : "2",
         "Info": "Avalanche insert description",
-        "Total_delegagation" : "99750",
+        "Total_delegation" : "99750",
         "Project_website" : "https://www.avalabs.org/",
         "Project_documentations" : ["https://docs.avax.network/", "https://medium.com/avalancheavax/tagged/ava-labs"],
         "Validators": [
@@ -68,21 +68,21 @@
                 "Address": "NodeID-B39dR3Zj4ZtiqSHTPLxck66yqxTZ9pRmK",
                 "Name": "NodeID-B39dR3Zj4ZtiqSHTPLxck66yqxTZ9pRmK",
                 "Fees": "2",
-                "Delegation": "2109",
+                "Delegation": "2109 AVAX",
                 "Stake_link": "https://avascan.info/staking/validator/NodeID-B39dR3Zj4ZtiqSHTPLxck66yqxTZ9pRmK"
             },
             {
                 "Address": "NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud",
                 "Name": "NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud",
                 "Fees": "2",
-                "Delegation": "2018",
+                "Delegation": "2018 AVAX",
                 "Stake_link": "https://avascan.info/staking/validator/NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud"
             },
             {
                 "Address": "NodeID-ENc7M77QRhgtpDojDQY5nqjndjiYCWR4i",
                 "Name": "NodeID-ENc7M77QRhgtpDojDQY5nqjndjiYCWR4i",
                 "Fees": "2",
-                "Delegation": "95623",
+                "Delegation": "95623 AVAX",
                 "Stake_link": "https://avascan.info/staking/validator/NodeID-ENc7M77QRhgtpDojDQY5nqjndjiYCWR4i"
             }
         ]
@@ -94,7 +94,7 @@
         "APY": "11",
         "Fees" : "0,06",
         "Info": "The Graph insert description",
-        "Total_delegagation" : "9658048",
+        "Total_delegation" : "9658048 GRT",
         "Project_website" : "https://thegraph.com/",
         "Project_documentations" : ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
         "Validators": [
@@ -102,7 +102,7 @@
                 "Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
                 "Name": "p-ops-eth",
                 "Fees": "0,06",
-                "Delegation": "9658048",
+                "Delegation": "9658048 GRT",
                 "Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
             }
         ]
@@ -114,7 +114,7 @@
         "APY": "15",
         "Fees" : "5",
         "Info": "Stafi insert description",
-        "Total_delegagation" : "1111",
+        "Total_delegation" : "145000 FIS",
         "Project_website" : "https://www.stafi.io",
         "Project_documentations" : ["github.com/stafi", "medium.com/stafi"],
         "Validators": [
@@ -122,7 +122,7 @@
                 "Address": "D8P3w7GQ4zTYbJfEGgfdQWQ1vrL6umGYAUrMz4hBJjrN",
                 "Name": "Soph",
                 "Fees": "5",
-                "Delegation": "250000000",
+                "Delegation": "145000 FIS",
                 "Stake_link": "https://stake_link_to_be_filled_up"
             }
         ]
