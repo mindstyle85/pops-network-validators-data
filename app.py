@@ -1,7 +1,9 @@
 from flask import Flask, abort, jsonify
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def read_data():
     with open('data.json') as json_file:
@@ -63,6 +65,8 @@ def stafi_data():
 def all():
     try:
         datas = read_data()
+        response = jsonify(datas)
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return jsonify(datas)
     except:
         abort(404, description="Networks ressource not found")

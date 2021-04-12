@@ -1,3 +1,4 @@
 flask
 marshmallow
 pycoingecko
+flask-cors
