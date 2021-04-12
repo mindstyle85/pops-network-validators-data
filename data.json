@@ -111,19 +111,19 @@
         "ID": "5",
         "Name": "Stafi",
         "price": "4",
-        "APY": "15",
+        "APY": "17",
         "Fees" : "5",
         "Info": "Stafi insert description",
         "Total_delegation" : "145000 FIS",
         "Project_website" : "https://www.stafi.io",
-        "Project_documentations" : ["github.com/stafi", "medium.com/stafi"],
+        "Project_documentations" : ["https://github.com/stafi", "https://medium.com/stafi"],
         "Validators": [
             {
                 "Address": "D8P3w7GQ4zTYbJfEGgfdQWQ1vrL6umGYAUrMz4hBJjrN",
                 "Name": "Soph",
                 "Fees": "5",
                 "Delegation": "145000 FIS",
-                "Stake_link": "https://stake_link_to_be_filled_up"
+                "Stake_link": "https://apps.stafi.io/#/staking/query/346wZvCJu1jp2ir2PPB5zUVAbZpmZsUtnBgkamCVNzBsJMEx"
             }
         ]
     }
