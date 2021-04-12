@@ -23,10 +23,10 @@
         "ID": "2",
         "Name": "Solana",
         "price": "0.2",
-        "APY": "25",
+        "APY": "15",
         "Fees" : "10",
         "Info": "Solana insert decription",
-        "Total_delegation" : "681777",
+        "Total_delegation" : "681777 SOL",
         "Project_website" : "https://www.solana.com",
         "Project_documentations" : ["https://docs.solana.com/", "https://solanalabs.medium.com/"],
         "Validators": [
@@ -60,7 +60,7 @@
         "APY": "11",
         "Fees" : "2",
         "Info": "Avalanche insert description",
-        "Total_delegation" : "99750",
+        "Total_delegation" : "99750 AVAX",
         "Project_website" : "https://www.avalabs.org/",
         "Project_documentations" : ["https://docs.avax.network/", "https://medium.com/avalancheavax/tagged/ava-labs"],
         "Validators": [
@@ -111,19 +111,19 @@
         "ID": "5",
         "Name": "Stafi",
         "price": "4",
-        "APY": "17",
+        "APY": "15",
         "Fees" : "5",
         "Info": "Stafi insert description",
         "Total_delegation" : "145000 FIS",
         "Project_website" : "https://www.stafi.io",
-        "Project_documentations" : ["https://github.com/stafi", "https://medium.com/stafi"],
+        "Project_documentations" : ["https://www.github.com/stafi", "https://www.medium.com/stafi"],
         "Validators": [
             {
                 "Address": "D8P3w7GQ4zTYbJfEGgfdQWQ1vrL6umGYAUrMz4hBJjrN",
                 "Name": "Soph",
                 "Fees": "5",
                 "Delegation": "145000 FIS",
-                "Stake_link": "https://apps.stafi.io/#/staking/query/346wZvCJu1jp2ir2PPB5zUVAbZpmZsUtnBgkamCVNzBsJMEx"
+                "Stake_link": "https://stake_link_to_be_filled_up"
             }
         ]
     }
