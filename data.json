@@ -62,7 +62,7 @@
         "Info": "Avalanche insert description",
         "Total_delegation" : "99750 AVAX",
         "Project_website" : "https://www.avalabs.org/",
-        "Project_documentations" : ["https://docs.avax.network/", "https://medium.com/avalancheavax/tagged/ava-labs"],
+        "Project_documentations" : ["https://docs.avax.network/", "https://medium.com/avalancheavax"],
         "Validators": [
             {
                 "Address": "NodeID-B39dR3Zj4ZtiqSHTPLxck66yqxTZ9pRmK",
