@@ -31,21 +31,21 @@
         "Project_documentations" : ["https://docs.solana.com/", "https://solanalabs.medium.com/"],
         "Validators": [
             {
-                "Address": "DTF5DM36Jc4vkVPJXbSm7wRLe6eeX1UWo72WQhxKJpR",
+                "Address": "FqUfeiVYd1LMNSDw1t9WE6fAXAKzjUVHf8YzZXWQjSMd",
                 "Name": "mindstyle | P-OPS Team",
                 "Fees": "10",
                 "Delegation": "229730 SOL",
                 "Stake_link": "https://www.validators.app/validators/mainnet/DTF5DM36Jc4vkVPJXbSm7wRLe6eeX1UWo72WQhxKJpR2?locale=en&order=score&refresh="
             },
             {
-                "Address": "9q16BB7WGmBxf1nJTdxH5zPnBUhtHqdqXqRFjSjuM4k7",
+                "Address": "GK9MfwWEK7BvMS8eQDaiEPnKcqMJoS7SKUiEBQY2pfxC",
                 "Name": "JB273 | P-OPS Team",
                 "Fees": "10",
                 "Delegation": "233320 SOL",
                 "Stake_link": "https://www.validators.app/validators/mainnet/9q16BB7WGmBxf1nJTdxH5zPnBUhtHqdqXqRFjSjuM4k7?locale=en&order=score&refresh="
             },
              {
-                "Address": "HwdfNWCqP2vXRvaHqQhoVUM2uPndaY8DDJzzBxCoPNHU",
+                "Address": "EzZEi48kvDWPJJBM1z9nmjpgRyMwWJwaa4xVW2U6psPr",
                 "Name": "yellowsin | P-OPS Team",
                 "Fees": "10",
                 "Delegation": "218727 SOL",
