@@ -2,3 +2,6 @@ flask
 marshmallow
 pycoingecko
 flask-cors
+# For harmony One
+pathlib
+pyhmy
