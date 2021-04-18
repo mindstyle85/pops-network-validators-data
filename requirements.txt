@@ -2,6 +2,8 @@ flask
 marshmallow
 pycoingecko
 flask-cors
-# For harmony One
+# For harmony One RPCs
 pathlib
 pyhmy
+# for Solana RPCs
+solana
