@@ -126,5 +126,25 @@
                 "Stake_link": "https://apps.stafi.io/#/staking/query/346wZvCJu1jp2ir2PPB5zUVAbZpmZsUtnBgkamCVNzBsJMEx"
             }
         ]
+    },
+    {
+        "ID": "6",
+        "Name": "Akash",
+        "price": "4.06",
+        "APY": "42.13",
+        "Fees" : "1.23",
+        "Info": "Akash Network",
+        "Total_delegation" : "169418 AKT",
+        "Project_website" : "https://akash.network/",
+        "Project_documentations" : ["https://github.com/ovrclk", "https://docs.akash.network/"],
+        "Validators": [
+            {
+                "Address": "akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7",
+                "Name": "Tigdar | P-OPS Team Validator",
+                "Fees": "1.23",
+                "Delegation": "169418 AKT",
+                "Stake_link": "https://wallet.keplr.app/#/akashnet/stake?modal=stake&validator=akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7"
+            }
+        ]
     }
 ]

@@ -38,13 +38,14 @@ while 1:
             datas = json.load(json_file)
 
         # updating price from coingecko API
-        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi', vs_currencies='usd')
+        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network', vs_currencies='usd')
         print (allprice)
         datas[0]["price"] = str(allprice['harmony']['usd'])
         datas[1]["price"] = str(allprice['solana']['usd'])
         datas[2]["price"] = str(allprice['avalanche-2']['usd'])
         datas[3]["price"] = str(allprice['the-graph']['usd'])
         datas[4]["price"] = str(allprice['stafi']['usd'])
+        datas[5]["price"] = str(allprice['akash-network']['usd'])
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
