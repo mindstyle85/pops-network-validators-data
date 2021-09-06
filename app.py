@@ -62,7 +62,7 @@ def stafi_data():
         abort(404, description="Stafi ressource not found")
 
 @app.route('/networks/akash')
-def stafi_data():
+def akash_data():
     try:
         datas = read_data()
         return datas[5]
