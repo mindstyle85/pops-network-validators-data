@@ -7,6 +7,8 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
+ENV PYTHONUNBUFFERED=1
+
 #CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 RUN chmod +x run.sh
 CMD [ "./run.sh"]

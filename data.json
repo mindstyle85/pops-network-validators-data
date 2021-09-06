@@ -23,7 +23,7 @@
         "ID": "2",
         "Name": "Solana",
         "price": "0.2",
-        "APY": "11.9",
+        "APY": "7.41",
         "Fees" : "10",
         "Info": "Solana insert decription",
         "Total_delegation" : "681777 SOL",
@@ -46,7 +46,7 @@
             },
              {
                 "Address": "EzZEi48kvDWPJJBM1z9nmjpgRyMwWJwaa4xVW2U6psPr",
-                "Name": "yellowsin | P-OPS Team",
+                "Name": "yelllowsin | P-OPS Team",
                 "Fees": "10",
                 "Delegation": "218727 SOL",
                 "Stake_link": "https://solanabeach.io/validator/EzZEi48kvDWPJJBM1z9nmjpgRyMwWJwaa4xVW2U6psPr"
@@ -92,7 +92,7 @@
         "Name": "The Graph",
         "price": "0.2",
         "APY": "11",
-        "Fees" : "0,06",
+        "Fees" : "1.5",
         "Info": "The Graph insert description",
         "Total_delegation" : "9658048 GRT",
         "Project_website" : "https://thegraph.com/",
@@ -101,7 +101,7 @@
             {
                 "Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
                 "Name": "p-ops-eth",
-                "Fees": "0,06",
+                "Fees": "1.5",
                 "Delegation": "9658048 GRT",
                 "Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
             }
