@@ -26,29 +26,36 @@
         "APY": "7.41",
         "Fees" : "10",
         "Info": "Solana insert decription",
-        "Total_delegation" : "681777 SOL",
+        "Total_delegation" : "495057 SOL",
         "Project_website" : "https://www.solana.com",
         "Project_documentations" : ["https://docs.solana.com/", "https://solanalabs.medium.com/"],
         "Validators": [
             {
+                "Address": "HLM6hyDWrEca9QMS92nDBa2AreU1qDkppttPVuJ7E2CU",
+                "Name": "P-OPS Team - 0% Fees !",
+                "Fees": "0",
+                "Delegation": "500 SOL",
+                "Stake_link": "https://solanabeach.io/validator/HLM6hyDWrEca9QMS92nDBa2AreU1qDkppttPVuJ7E2CU"
+            },
+            {
                 "Address": "FqUfeiVYd1LMNSDw1t9WE6fAXAKzjUVHf8YzZXWQjSMd",
                 "Name": "mindstyle | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "229730 SOL",
+                "Delegation": "164816 SOL",
                 "Stake_link": "https://solanabeach.io/validator/FqUfeiVYd1LMNSDw1t9WE6fAXAKzjUVHf8YzZXWQjSMd"
             },
             {
                 "Address": "GK9MfwWEK7BvMS8eQDaiEPnKcqMJoS7SKUiEBQY2pfxC",
                 "Name": "JB273 | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "233320 SOL",
+                "Delegation": "164816 SOL",
                 "Stake_link": "https://solanabeach.io/validator/GK9MfwWEK7BvMS8eQDaiEPnKcqMJoS7SKUiEBQY2pfxC"
             },
              {
                 "Address": "EzZEi48kvDWPJJBM1z9nmjpgRyMwWJwaa4xVW2U6psPr",
                 "Name": "yelllowsin | P-OPS Team",
                 "Fees": "10",
-                "Delegation": "218727 SOL",
+                "Delegation": "164925 SOL",
                 "Stake_link": "https://solanabeach.io/validator/EzZEi48kvDWPJJBM1z9nmjpgRyMwWJwaa4xVW2U6psPr"
             }
         ]
