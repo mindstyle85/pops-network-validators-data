@@ -79,13 +79,6 @@
                 "Stake_link": "https://avascan.info/staking/validator/NodeID-B39dR3Zj4ZtiqSHTPLxck66yqxTZ9pRmK"
             },
             {
-                "Address": "NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud",
-                "Name": "NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud",
-                "Fees": "2",
-                "Delegation": "2018 AVAX",
-                "Stake_link": "https://avascan.info/staking/validator/NodeID-FtEpfz4ppFJEVMc7YBMegLYtS3Mk3B4ud"
-            },
-            {
                 "Address": "NodeID-ENc7M77QRhgtpDojDQY5nqjndjiYCWR4i",
                 "Name": "NodeID-ENc7M77QRhgtpDojDQY5nqjndjiYCWR4i",
                 "Fees": "2",
