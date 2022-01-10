@@ -146,5 +146,25 @@
                 "Stake_link": "https://wallet.keplr.app/#/akashnet/stake?modal=stake&validator=akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7"
             }
         ]
+    },
+    {
+        "ID": "7",
+        "Name": "Agoric",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "0",
+        "Info": "Agoric",
+        "Total_delegation" : "57642 BLD",
+        "Project_website" : "https://agoric.com/",
+        "Project_documentations" : ["https://agoric.com/documentation"],
+        "Validators": [
+            {
+                "Address": "akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7",
+                "Name": "🔨 P-OPS Team Validator | Community Run 🔥🔥0% FEE🔥🔥",
+                "Fees": "0",
+                "Delegation": "57642 BLD",
+                "Stake_link": "https://wallet.keplr.app/#/agoric/stake?modal=detail&validator=agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
+            }
+        ]
     }
 ]
