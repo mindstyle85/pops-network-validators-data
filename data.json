@@ -156,14 +156,34 @@
         "Info": "Agoric",
         "Total_delegation" : "57642 BLD",
         "Project_website" : "https://agoric.com/",
-        "Project_documentations" : ["https://agoric.com/documentation"],
+        "Project_documentations" : ["https://github.com/Agoric/", "https://agoric.com/documentation"],
         "Validators": [
             {
                 "Address": "akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7",
-                "Name": "🔨 P-OPS Team Validator | Community Run 🔥🔥0% FEE🔥🔥",
+                "Name": "P-OPS Team Validator | Community Run 🔥🔥0% FEE🔥🔥",
                 "Fees": "0",
                 "Delegation": "57642 BLD",
                 "Stake_link": "https://wallet.keplr.app/#/agoric/stake?modal=detail&validator=agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
+            }
+        ]
+    }
+    {
+        "ID": "8",
+        "Name": "Axelar",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "10",
+        "Info": "Axelar",
+        "Total_delegation" : "-",
+        "Project_website" : "https://axelar.network/",
+        "Project_documentations" : ["https://github.com/axelarnetwork/", "https://docs.axelar.dev/"],
+        "Validators": [
+            {
+                "Address": "axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr",
+                "Name": "P-OPS Team Validator | Community Run",
+                "Fees": "10",
+                "Delegation": "1 AXL",
+                "Stake_link": "https://wallet.keplr.app/#/axelar/stake?modal=stake&validator=axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr"
             }
         ]
     }
