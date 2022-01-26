@@ -174,7 +174,7 @@
         "APY": "-",
         "Fees" : "10",
         "Info": "Axelar",
-        "Total_delegation" : "-",
+        "Total_delegation" : "1 AXL",
         "Project_website" : "https://axelar.network/",
         "Project_documentations" : ["https://github.com/axelarnetwork/", "https://docs.axelar.dev/"],
         "Validators": [
