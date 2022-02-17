@@ -160,7 +160,7 @@
         "Validators": [
             {
                 "Address": "akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7",
-                "Name": "P-OPS Team Validator | Community Run 🔥🔥0% FEE🔥🔥",
+                "Name": "P-OPS Team Validator | Community Run",
                 "Fees": "0",
                 "Delegation": "57642 BLD",
                 "Stake_link": "https://wallet.keplr.app/#/agoric/stake?modal=detail&validator=agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
@@ -184,6 +184,26 @@
                 "Fees": "10",
                 "Delegation": "1 AXL",
                 "Stake_link": "https://wallet.keplr.app/#/axelar/stake?modal=stake&validator=axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr"
+            }
+        ]
+    }
+     {
+        "ID": "9",
+        "Name": "Umee",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "2",
+        "Info": "Umee",
+        "Total_delegation" : "108147 UMEE",
+        "Project_website" : "https://www.umee.cc/",
+        "Project_documentations" : ["https://github.com/umee-network", "https://docs.umee.cc/umee/"],
+        "Validators": [
+            {
+                "Address": "umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6",
+                "Name": "P-OPS Team Validator | Community Run",
+                "Fees": "2",
+                "Delegation": "108147 UMEE",
+                "Stake_link": "https://wallet.keplr.app/#/umee/stake?chainId=umee-1&modal=stake&validator=umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
             }
         ]
     }
