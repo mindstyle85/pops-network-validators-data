@@ -159,7 +159,7 @@
         "Project_documentations" : ["https://github.com/Agoric/", "https://agoric.com/documentation"],
         "Validators": [
             {
-                "Address": "akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7",
+                "Address": "agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv",
                 "Name": "P-OPS Team Validator | Community Run",
                 "Fees": "0",
                 "Delegation": "57642 BLD",
