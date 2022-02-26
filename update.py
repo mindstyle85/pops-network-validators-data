@@ -25,6 +25,9 @@ def uaxl_to_axl(uaxl):
 def ubld_to_bld(ubld):
     return int(ubld / (10 ** 6))
 
+def uakt_to_akt(uakt):
+    return int(uakt / (10 ** 6))
+
 def http_json_call(url):
     try:
         r = requests.get(url)
@@ -154,6 +157,29 @@ while 1:
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
         print ("Agoric data updated")
+    
+        ###########################################################################
+        ###################### updating Akash data #####################
+
+        stats = http_json_call("http://val01.akt.m.pops.one:1317/staking/validators/akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7")
+        # fees/rate update
+        datas[5]['Fees'] = f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
+        datas[5]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
+
+        # update APY
+        inflation_stats = http_json_call("http://val01.akt.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
+        datas[5]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+
+        # name update
+        datas[5]['Validators'][0]['Name'] = stats['result']['description']['moniker']
+
+        #total delegation update
+        datas[5]['Total_delegation'] = f"{uakt_to_akt(int(stats['result']['tokens']))} AKT"
+        datas[5]['Validators'][0]['Delegation'] = f"{uakt_to_akt(int(stats['result']['tokens']))} AKT"
+
+        with open('data.json', 'w') as outfile:
+            json.dump(datas, outfile)
+        print ("Akash data updated")
 
         #########################################################################
         ###################### updating solana related data#####################
