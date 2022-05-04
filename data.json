@@ -205,6 +205,24 @@
                 "Delegation": "108147 UMEE",
                 "Stake_link": "https://wallet.keplr.app/#/umee/stake?chainId=umee-1&modal=stake&validator=umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
             }
-        ]
+        ],
+        {
+        "ID": "10",
+        "Name": "Covalent",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "8",
+        "Info": "Covalent",
+        "Total_delegation" : "175000 CQT",
+        "Project_website" : "https://www.covalenthq.com/",
+        "Project_documentations" : ["https://github.com/covalenthq", "https://www.covalenthq.com/docs/"],
+        "Validators": [
+            {
+                "Address": "0x92668bA72601aAe3FEf3A7aAe425489780ECDce2",
+                "Name": "P-OPS Team Validator",
+                "Fees": "8",
+                "Delegation": "175000 CQT",
+                "Stake_link": "https://www.covalenthq.com/dashboard/#/stake/single-sided/"
+            }
     }
 ]
