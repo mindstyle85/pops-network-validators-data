@@ -1,4 +1,8 @@
-[
+{
+    "global":{
+        "networks_total_delegation": 0
+    },
+    "networks": [
     {
         "ID": "1",
         "Name": "Harmony",
@@ -187,7 +191,7 @@
             }
         ]
     },
-     {
+    {
         "ID": "9",
         "Name": "Umee",
         "price": "-",
@@ -206,5 +210,25 @@
                 "Stake_link": "https://wallet.keplr.app/#/umee/stake?chainId=umee-1&modal=stake&validator=umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
             }
         ]
-    }
-]
+    },
+    {
+        "ID": "10",
+        "Name": "Covalent",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "8",
+        "Info": "Covalent",
+        "Total_delegation" : "153946 CQT",
+        "Project_website" : "https://www.covalenthq.com/",
+        "Project_documentations" : ["https://www.covalenthq.com/docs/", "https://github.com/covalenthq"],
+        "Validators": [
+            {
+                "Address": "0x92668ba72601aae3fef3a7aae425489780ecdce2",
+                "Name": "P-OPS Team Validator | Community Run",
+                "Fees": "8",
+                "Delegation": "153946 CQT",
+                "Stake_link": "https://www.covalenthq.com/dashboard/#/stake/single-sided/"
+            }
+        ]
+    }]
+}

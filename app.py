@@ -25,7 +25,7 @@ def hello_world():
 def harmony_data():
     try:
         datas = read_data()
-        return datas[0]
+        return datas["networks"][0]
     except:
         abort(404, description="Harmony ressource not found")
 
@@ -33,7 +33,7 @@ def harmony_data():
 def solana_data():
     try:
         datas = read_data()
-        return datas[1]
+        return datas["networks"][1]
     except:
         abort(404, description="Solana ressource not found")
 
@@ -41,7 +41,7 @@ def solana_data():
 def avalanche_data():
     try:
         datas = read_data()
-        return datas[2]
+        return datas["networks"][2]
     except:
         abort(404, description="Avalanche ressource not found")
 
@@ -49,7 +49,7 @@ def avalanche_data():
 def thegraph_data():
     try:
         datas = read_data()
-        return datas[3]
+        return datas["networks"][3]
     except:
         abort(404, description="The Graph ressource not found")
 
@@ -57,24 +57,33 @@ def thegraph_data():
 def stafi_data():
     try:
         datas = read_data()
-        return datas[4]
+        return datas["networks"][4]
     except:
         abort(404, description="Stafi ressource not found")
 
-@app.route('/networks/akash')
+@app.route('/global/akash')
 def akash_data():
     try:
         datas = read_data()
-        return datas[5]
+        return datas["networks"][5]
     except:
         abort(404, description="Akash resource not found")
-        
+
+@app.route('/networks_total_delegation')
+def networks_total_delegation():
+    try:
+        datas = read_data()
+        return jsonify(datas["global"]["networks_total_delegation"])
+    except:
+        abort(404, description="Error reading networks_total_delegation")
+      
 @app.route('/networks')
 def all():
     try:
-        datas = read_data()
+        datas = read_data()["networks"]
         response = jsonify(datas)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return jsonify(datas)
     except:
         abort(404, description="Networks ressource not found")
+
