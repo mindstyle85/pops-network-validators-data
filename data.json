@@ -98,7 +98,7 @@
         "APY": "12",
         "Fees" : "10",
         "Info": "The Graph insert description",
-        "Total_delegation" : "11606313 GRT",
+        "Total_delegation" : "12815159 GRT",
         "Project_website" : "https://thegraph.com/",
         "Project_documentations" : ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
         "Validators": [
@@ -106,7 +106,7 @@
                 "Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
                 "Name": "p-ops-eth",
                 "Fees": "10",
-                "Delegation": "11606313 GRT",
+                "Delegation": "12815159 GRT",
                 "Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
             }
         ]
@@ -158,7 +158,7 @@
         "APY": "-",
         "Fees" : "0",
         "Info": "Agoric",
-        "Total_delegation" : "57642 BLD",
+        "Total_delegation" : "584041 BLD",
         "Project_website" : "https://agoric.com/",
         "Project_documentations" : ["https://github.com/Agoric/", "https://agoric.com/documentation"],
         "Validators": [
@@ -166,7 +166,7 @@
                 "Address": "agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv",
                 "Name": "P-OPS Team Validator | Community Run",
                 "Fees": "0",
-                "Delegation": "57642 BLD",
+                "Delegation": "584041 BLD",
                 "Stake_link": "https://wallet.keplr.app/#/agoric/stake?modal=detail&validator=agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
             }
         ]
@@ -198,7 +198,7 @@
         "APY": "-",
         "Fees" : "2",
         "Info": "Umee",
-        "Total_delegation" : "108147 UMEE",
+        "Total_delegation" : "10244745 UMEE",
         "Project_website" : "https://www.umee.cc/",
         "Project_documentations" : ["https://github.com/umee-network", "https://docs.umee.cc/umee/"],
         "Validators": [
@@ -206,7 +206,7 @@
                 "Address": "umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6",
                 "Name": "P-OPS Team Validator | Community Run",
                 "Fees": "2",
-                "Delegation": "108147 UMEE",
+                "Delegation": "10244745 UMEE",
                 "Stake_link": "https://wallet.keplr.app/#/umee/stake?chainId=umee-1&modal=stake&validator=umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
             }
         ]
@@ -218,7 +218,7 @@
         "APY": "-",
         "Fees" : "8",
         "Info": "Covalent",
-        "Total_delegation" : "153946 CQT",
+        "Total_delegation" : "700000 CQT",
         "Project_website" : "https://www.covalenthq.com/",
         "Project_documentations" : ["https://www.covalenthq.com/docs/", "https://github.com/covalenthq"],
         "Validators": [
@@ -226,7 +226,7 @@
                 "Address": "0x92668ba72601aae3fef3a7aae425489780ecdce2",
                 "Name": "P-OPS Team Validator | Community Run",
                 "Fees": "8",
-                "Delegation": "153946 CQT",
+                "Delegation": "700000 CQT",
                 "Stake_link": "https://www.covalenthq.com/dashboard/#/stake/single-sided/"
             }
         ]
