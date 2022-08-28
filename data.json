@@ -94,19 +94,19 @@
     {
         "ID": "4",
         "Name": "The Graph",
-        "price": "0.2",
-        "APY": "12",
-        "Fees" : "10",
+        "price": "0.1",
+        "APY": "11",
+        "Fees" : "15",
         "Info": "The Graph insert description",
-        "Total_delegation" : "12815159 GRT",
+        "Total_delegation" : "24005884 GRT",
         "Project_website" : "https://thegraph.com/",
         "Project_documentations" : ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
         "Validators": [
             {
                 "Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
                 "Name": "p-ops-eth",
-                "Fees": "10",
-                "Delegation": "12815159 GRT",
+                "Fees": "15",
+                "Delegation": "24005884 GRT",
                 "Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
             }
         ]
