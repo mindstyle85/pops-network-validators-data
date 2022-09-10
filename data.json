@@ -230,5 +230,25 @@
                 "Stake_link": "https://www.covalenthq.com/dashboard/#/stake/single-sided/"
             }
         ]
+    },
+    {
+        "ID": "11",
+        "Name": "Point",
+        "price": "-",
+        "APY": "-",
+        "Fees" : "5",
+        "Info": "Point Network",
+        "Total_delegation" : "30000 Point",
+        "Project_website" : "https://pointnetwork.io/",
+        "Project_documentations" : ["https://github.com/pointnetwork/pointnetwork"],
+        "Validators": [
+            {
+                "Address": "pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0",
+                "Name": "P-OPS Team Validator | Community Run",
+                "Fees": "5",
+                "Delegation": "30000 Point",
+                "Stake_link": "https://cosmos.pointnetwork.io/point/staking/pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0"
+            }
+        ]
     }]
 }

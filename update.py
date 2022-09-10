@@ -51,6 +51,13 @@ def http_json_call(url):
         content = json.loads(r.content)
         return content
 
+def get_price_from_mexc(ticker1, ticker2):
+    #Price from MEXC
+    mrkt_url = 'https://www.mexc.com/open/api/v2/market/ticker'
+    url      =  f"{mrkt_url}?symbol={ticker1}_{ticker2}"
+    ticker_info = http_json_call(url)
+    return ticker_info["data"][0]["last"]
+
 Solana_http_client = Solana_Client("https://api.mainnet-beta.solana.com")
 
 while 1:
@@ -74,6 +81,7 @@ while 1:
         datas["networks"][7]["price"] = "NA" #str(allprice['axelar-network']['usd'])
         datas["networks"][8]["price"] = str(allprice['umee']['usd'])
         datas["networks"][9]["price"] = str(allprice['covalent']['usd'])
+        datas["networks"][10]["price"] = str(get_price_from_mexc('POINT','USDT'))
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
@@ -239,6 +247,29 @@ while 1:
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
         print ("Solana data updated")
+
+        ###########################################################################
+        ###################### updating Point data #####################
+
+        stats = http_json_call("http://val01.point.m.pops.one:1317/staking/validators/pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0")
+        # fees/rate update
+        datas["networks"][10]['Fees'] = f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
+        datas["networks"][10]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
+
+        # update APY
+        #inflation_stats = http_json_call("http://val01.point.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
+        #datas["networks"][5]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+        datas["networks"][10]['APY'] = 1600.00
+        # name update
+        datas["networks"][10]['Validators'][0]['Name'] = stats['result']['description']['moniker']
+
+        #total delegation update
+        datas["networks"][10]['Total_delegation'] = f"{atto_to_one(int(stats['result']['tokens']))} POINT"
+        datas["networks"][10]['Validators'][0]['Delegation'] = f"{atto_to_one(int(stats['result']['tokens']))} POINT"
+
+        with open('data.json', 'w') as outfile:
+            json.dump(datas, outfile)
+        print ("Points data updated")
 
 
         #########################################################################
