@@ -61,7 +61,7 @@ while 1:
             datas = json.load(json_file)
 
         # updating price from coingecko API
-        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network, umee, covalent', vs_currencies='usd')
+        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network, umee, covalent, agoric', vs_currencies='usd')
         print (allprice)
         datas["networks"][0]["price"] = str(allprice['harmony']['usd'])
         datas["networks"][1]["price"] = str(allprice['solana']['usd'])
@@ -69,8 +69,7 @@ while 1:
         datas["networks"][3]["price"] = str(allprice['the-graph']['usd'])
         datas["networks"][4]["price"] = str(allprice['stafi']['usd'])
         datas["networks"][5]["price"] = str(allprice['akash-network']['usd'])
-        #BLD
-        datas["networks"][6]["price"] = "NA" #str(allprice['agoric']['usd'])
+        datas["networks"][6]["price"] = str(allprice['agoric']['usd'])
         #AXL
         datas["networks"][7]["price"] = "NA" #str(allprice['axelar-network']['usd'])
         datas["networks"][8]["price"] = str(allprice['umee']['usd'])
