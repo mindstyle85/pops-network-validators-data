@@ -10,8 +10,10 @@ def read_data():
         datas = json.load(json_file)
     return datas
 
-#initialize the data with the file data
-datas = read_data()
+def read_staking_data():
+    with open('staking.json') as json_file:
+        statingdatas = json.load(json_file)
+    return statingdatas
 
 @app.errorhandler(404)
 def resource_not_found(e):
@@ -87,3 +89,12 @@ def all():
     except:
         abort(404, description="Networks ressource not found")
 
+@app.route('/staking-rewards')
+def staking_rewards():
+    try:
+        stakingdatas = read_staking_data()
+        response = jsonify(stakingdatas)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return jsonify(stakingdatas)
+    except:
+        abort(404, description="Staking Datas ressource not found")
