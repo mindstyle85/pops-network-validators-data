@@ -511,10 +511,9 @@ while 1:
         all_validator_account = http_json_call(f"https://avascan.info/api/v1/validators?limit={all_network_validator}")["results"]
         for pops_validator in datas["networks"][2]['Validators']:
             val = [validator for validator in all_validator_account if validator['id'] == pops_validator['Address']][0]
-            #print (val)
             total_delegation += val['weight'] / 10**9 #self=delegation
             total_delegation += val['delegatedWeights'] #delegation
-            pops_validator['Delegation'] = f"{total_delegation} AVAX"
+            pops_validator['Delegation'] = f"{val['weight'] / 10**9 + val['delegatedWeights']} AVAX"
             pops_validator['delegators'] = val['delegations']
             total_delegators += val['delegations']
             pops_validator['Fees'] = f"{float('%.2f' % float(val['delegationFee']))*100}"
