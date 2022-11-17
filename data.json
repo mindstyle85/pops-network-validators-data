@@ -4,6 +4,7 @@
 	},
 	"networks": [{
 			"ID": "1",
+			"Active": true,
 			"Name": "Harmony",
 			"price": "20",
 			"Fees": "5",
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": "2",
+			"Active": true,
 			"Name": "Solana",
 			"price": "0.2",
 			"APY": "7.41",
@@ -62,6 +64,7 @@
 		},
 		{
 			"ID": "3",
+			"Active": true,
 			"Name": "Avalanche",
 			"price": "0.2",
 			"APY": "11",
@@ -88,6 +91,7 @@
 		},
 		{
 			"ID": "4",
+			"Active": true,
 			"Name": "The Graph",
 			"price": "0.1",
 			"APY": "11",
@@ -106,6 +110,7 @@
 		},
 		{
 			"ID": "5",
+			"Active": false,
 			"Name": "Stafi",
 			"price": "0",
 			"APY": "0",
@@ -124,6 +129,7 @@
 		},
 		{
 			"ID": "6",
+			"Active": false,
 			"Name": "Akash",
 			"price": "0",
 			"APY": "0",
@@ -142,6 +148,7 @@
 		},
 		{
 			"ID": "7",
+			"Active": true,
 			"Name": "Agoric",
 			"price": "-",
 			"APY": "-",
@@ -160,6 +167,7 @@
 		},
 		{
 			"ID": "8",
+			"Active": true,
 			"Name": "Axelar",
 			"price": "-",
 			"APY": "-",
@@ -178,6 +186,7 @@
 		},
 		{
 			"ID": "9",
+			"Active": true,
 			"Name": "Umee",
 			"price": "-",
 			"APY": "-",
@@ -196,6 +205,7 @@
 		},
 		{
 			"ID": "10",
+			"Active": true,
 			"Name": "Covalent",
 			"price": "-",
 			"APY": "-",
@@ -214,6 +224,7 @@
 		},
 		{
 			"ID": "11",
+			"Active": true,
 			"Name": "Point",
 			"price": "-",
 			"APY": "-",
@@ -232,6 +243,7 @@
 		},
 		{
 			"ID": "12",
+			"Active": true,
 			"Name": "Forta",
 			"price": "0.13",
 			"APY": "12",
