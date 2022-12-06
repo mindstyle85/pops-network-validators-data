@@ -292,7 +292,7 @@ while 1:
 
             # update APY
             inflation_stats = http_json_call("http://rpc01.axl.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            datas["networks"][7]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+            datas["networks"][7]['APY'] = '18.6' #'%.2f' % (float(inflation_stats['inflation']) * 100)
 
             # name update
             datas["networks"][7]['Validators'][0]['Name'] = axl_stats['validator']['description']['moniker']
