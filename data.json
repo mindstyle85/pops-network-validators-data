@@ -288,6 +288,44 @@
 					"Stake_link": "https://explorer.forta.network/scan-node/0x9bec9ddd76155866513f97c3e6e851e6631f0e02"
 				}
 			]
+		},
+		{
+			"ID": "13",
+			"Active": true,
+			"Name": "Arable",
+			"price": "0.004616",
+			"APY": "18",
+			"Fees": "5",
+			"Info": "Arable Network",
+			"Total_delegation": "100119.6 ACRE",
+			"Project_website": "https://arable.finance/",
+			"Project_documentations": ["https://about.arable.finance/","https://medium.com/@ArableProtocol"],
+			"Validators": [{
+				"Address": "acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g",
+				"Name": "P-OPS Team",
+				"Fees": "5",
+				"Delegation": "100119.6 ACRE",
+				"Stake_link": "https://explorer.nodestake.top/acre/staking/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g"
+			}]
+		},
+		{
+			"ID": "14",
+			"Active": true,
+			"Name": "Aleph Zero",
+			"price": "0.9535",
+			"APY": "12",
+			"Fees": "2",
+			"Info": "Aleph Zero",
+			"Total_delegation": "123161 AZERO",
+			"Project_website": "https://alephzero.org/",
+			"Project_documentations": ["https://docs.alephzero.org/aleph-zero/", "https://github.com/alephzero"],
+			"Validators": [{
+				"Address": "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t",
+				"Name": "P-OPS TEAM",
+				"Fees": "2",
+				"Delegation": "123161 AZERO",
+				"Stake_link": "https://azero.dev/#/staking/actions"
+			}]
 		}
 	]
 }
