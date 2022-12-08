@@ -604,7 +604,7 @@ while 1:
             datas["networks"][13]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][13]["price"])
 
             # create staking reward assets
-            json_asset=create_stakingreward_assets("AlephZero", "azero", 100119.6,
+            json_asset=create_stakingreward_assets("AlephZero", "aleph-zero", 100119.6,
                             datas["networks"][13]["balanceUsdTotal"], 3,
                             float(datas["networks"][13]['Fees']) / 100, "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t")
 
