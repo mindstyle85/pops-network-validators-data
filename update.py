@@ -183,7 +183,7 @@ while 1:
         staking_data["supportedAssets"] = []
 
         # updating price from coingecko API
-        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network, umee, covalent, agoric, axelar', vs_currencies='usd')
+        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network, umee, covalent, agoric, axelar, point-network, forta, arable-protocol, aleph-zero', vs_currencies='usd')
         print (allprice)
         datas["networks"][0]["price"] = str(allprice['harmony']['usd'])
         datas["networks"][1]["price"] = str(allprice['solana']['usd'])
@@ -195,7 +195,11 @@ while 1:
         datas["networks"][7]["price"] = str(allprice['axelar']['usd'])
         datas["networks"][8]["price"] = str(allprice['umee']['usd'])
         datas["networks"][9]["price"] = str(allprice['covalent']['usd'])
-        datas["networks"][10]["price"] = str(get_price_from_mexc('POINT','USDT'))
+        #datas["networks"][10]["price"] = str(get_price_from_mexc('POINT','USDT'))
+        datas["networks"][10]["price"] = str(allprice['point-network']['usd'])
+        datas["networks"][11]["price"] = str(allprice['forta']['usd'])
+        datas["networks"][12]["price"] = str(allprice['arable-protocol']['usd'])
+        datas["networks"][13]["price"] = str(allprice['aleph-zero']['usd'])
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
@@ -535,6 +539,86 @@ while 1:
         staking_data["supportedAssets"].append(json_asset)
 
         ###########################################################################
+        ###################### updating Arable data #####################
+        try:
+            # update delegator number
+            validator_delegations = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g/delegations")
+            datas["networks"][12]['delegators'] = len(validator_delegations["delegation_responses"])
+
+            stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
+            # fees/rate update
+            datas["networks"][12]['Fees'] = f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+            datas["networks"][12]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+
+            # update APY
+            #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
+            #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+            datas["networks"][12]['APY'] = 18
+            # name update
+            datas["networks"][12]['Validators'][0]['Name'] = stats['validator']['description']['moniker']
+
+            #total delegation update
+            datas["networks"][12]['Total_delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+            datas["networks"][12]['Validators'][0]['Delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+
+            # Update $$$
+            datas["networks"][12]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][12]["price"])
+
+            # create staking reward assets
+            json_asset=create_stakingreward_assets("Arable", "arable", atto_to_one(int(stats['validator']['tokens'])),
+                            datas["networks"][12]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
+                            float(datas["networks"][12]['Fees']) / 100, "acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
+            staking_data["supportedAssets"].append(json_asset)
+
+            with open('data.json', 'w') as outfile:
+                json.dump(datas, outfile)
+            print ("Arable data updated")
+        except Exception as e:
+            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
+            print(f"{nowstring} : issue trying to update Arable Protocol data")
+            print(e)
+
+        ###########################################################################
+        ###################### updating Aleph Zero data #####################
+        try:
+            # statically define
+            datas["networks"][13]['delegators'] = 3
+
+            #stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
+            # fees/rate update
+            datas["networks"][13]['Fees'] = "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+            datas["networks"][13]['Validators'][0]['Fees'] =  "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+
+            # update APY
+            #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
+            #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+            datas["networks"][13]['APY'] = 18
+            # name update
+            datas["networks"][13]['Validators'][0]['Name'] = "P-OPS Team" #stats['validator']['description']['moniker']
+
+            #total delegation update
+            datas["networks"][13]['Total_delegation'] = "100119.6" #f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+            datas["networks"][13]['Validators'][0]['Delegation'] = "100119.6 Azero" #{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+
+            # Update $$$
+            datas["networks"][13]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][13]["price"])
+
+            # create staking reward assets
+            json_asset=create_stakingreward_assets("AlephZero", "azero", 100119.6,
+                            datas["networks"][13]["balanceUsdTotal"], 3,
+                            float(datas["networks"][13]['Fees']) / 100, "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t")
+
+            staking_data["supportedAssets"].append(json_asset)
+
+            with open('data.json', 'w') as outfile:
+                json.dump(datas, outfile)
+            print ("Aleph Zero data updated")
+        except Exception as e:
+            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
+            print(f"{nowstring} : issue trying to update Arable Protocol data")
+            print(e)
+
+        ###########################################################################
         ###################### updating the graph related data#####################
         # get the name : curl -X GET https://api.oracleminer.com/graph/ens/0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7
         # get indexer info : curl -X GET https://api.oracleminer.com/graph/indexer/0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7
@@ -543,6 +627,7 @@ while 1:
         all_networks_total_delegation = 0
         for network in datas["networks"]:            
             if network["price"] != "NA" and is_float(network["price"]):
+                print(network["Total_delegation"])
                 total_network_delegation = float(network["Total_delegation"].split()[0])
                 dollar_total_network_delegation = float(network["price"]) * total_network_delegation
                 all_networks_total_delegation += dollar_total_network_delegation
