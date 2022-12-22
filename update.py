@@ -36,6 +36,9 @@ def ubld_to_bld(ubld):
 def uakt_to_akt(uakt):
     return int(uakt / (10 ** 6))
 
+def micro_to_none(unumber):
+    return int(unumber / (10 ** 6))
+
 def atto_to_cqt(atto):
     return int(atto / (10 ** 18))
 
@@ -200,6 +203,7 @@ while 1:
         datas["networks"][11]["price"] = str(allprice['forta']['usd'])
         datas["networks"][12]["price"] = str(allprice['arable-protocol']['usd'])
         datas["networks"][13]["price"] = str(allprice['aleph-zero']['usd'])
+        datas["networks"][14]["price"] = 0
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
@@ -576,6 +580,46 @@ while 1:
         except Exception as e:
             nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
             print(f"{nowstring} : issue trying to update Arable Protocol data")
+            print(e)
+
+        ###########################################################################
+        ###################### updating Quicksilver data #####################
+        try:
+            # update delegator number
+            validator_delegations = http_json_call("http://val01.qck.m.pops.one:1327/cosmos/staking/v1beta1/validators/quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw/delegations")
+            datas["networks"][14]['delegators'] = len(validator_delegations["delegation_responses"])
+
+            stats = http_json_call("http://val01.qck.m.pops.one:1327/cosmos/staking/v1beta1/validators/quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw")
+            # fees/rate update
+            datas["networks"][14]['Fees'] = f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+            datas["networks"][14]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+
+            # update APY
+            #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
+            #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+            datas["networks"][14]['APY'] = 18
+            # name update
+            datas["networks"][14]['Validators'][0]['Name'] = stats['validator']['description']['moniker']
+
+            #total delegation update
+            datas["networks"][14]['Total_delegation'] = f"{micro_to_none(int(stats['validator']['tokens']))} QCK"
+            datas["networks"][14]['Validators'][0]['Delegation'] = f"{micro_to_none(int(stats['validator']['tokens']))} QCK"
+
+            # Update $$$
+            datas["networks"][14]["balanceUsdTotal"]=micro_to_none(int(stats['validator']['tokens'])) * float(datas["networks"][12]["price"])
+
+            # create staking reward assets
+            json_asset=create_stakingreward_assets("Quicksilver", "quicksilver", micro_to_none(int(stats['validator']['tokens'])),
+                            datas["networks"][14]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
+                            float(datas["networks"][14]['Fees']) / 100, "quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw")
+            staking_data["supportedAssets"].append(json_asset)
+
+            with open('data.json', 'w') as outfile:
+                json.dump(datas, outfile)
+            print ("Quicksilver data updated")
+        except Exception as e:
+            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
+            print(f"{nowstring} : issue trying to update Quicsilver data")
             print(e)
 
         ###########################################################################
