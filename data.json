@@ -97,14 +97,14 @@
 			"APY": "11",
 			"Fees": "15",
 			"Info": "The Graph insert description",
-			"Total_delegation": "24005884 GRT",
+			"Total_delegation": "24929470 GRT",
 			"Project_website": "https://thegraph.com/",
 			"Project_documentations": ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
 			"Validators": [{
 				"Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
 				"Name": "p-ops.eth",
 				"Fees": "15",
-				"Delegation": "24005884 GRT",
+				"Delegation": "24929470 GRT",
 				"Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
 			}]
 		},
@@ -316,15 +316,34 @@
 			"APY": "12",
 			"Fees": "2",
 			"Info": "Aleph Zero",
-			"Total_delegation": "123161 AZERO",
+			"Total_delegation": "333308 AZERO",
 			"Project_website": "https://alephzero.org/",
 			"Project_documentations": ["https://docs.alephzero.org/aleph-zero/", "https://github.com/alephzero"],
 			"Validators": [{
 				"Address": "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t",
 				"Name": "P-OPS TEAM",
 				"Fees": "2",
-				"Delegation": "123161 AZERO",
+				"Delegation": "333308 AZERO",
 				"Stake_link": "https://azero.dev/#/staking/actions"
+			}]
+		},
+		{
+			"ID": "15",
+			"Active": true,
+			"Name": "Quicksilver",
+			"price": "0",
+			"APY": "18",
+			"Fees": "5",
+			"Info": "Quicksilver",
+			"Total_delegation": "259353 QCK",
+			"Project_website": "https://quicksilver.zone/",
+			"Project_documentations": ["https://medium.com/quicksilverzone", "https://github.com/ingenuity-build"],
+			"Validators": [{
+				"Address": "quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "259353 QCK",
+				"Stake_link": "https://wallet.keplr.app/chains/quicksilver?modal=validator&chain=quicksilver-1&validator_address=quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxywg"
 			}]
 		}
 	]
