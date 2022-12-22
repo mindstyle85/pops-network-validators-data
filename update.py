@@ -565,7 +565,7 @@ while 1:
             datas["networks"][12]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][12]["price"])
 
             # create staking reward assets
-            json_asset=create_stakingreward_assets("Arable", "arable", atto_to_one(int(stats['validator']['tokens'])),
+            json_asset=create_stakingreward_assets("Arable", "arable-protocol", atto_to_one(int(stats['validator']['tokens'])),
                             datas["networks"][12]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
                             float(datas["networks"][12]['Fees']) / 100, "acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
             staking_data["supportedAssets"].append(json_asset)
@@ -615,7 +615,7 @@ while 1:
             print ("Aleph Zero data updated")
         except Exception as e:
             nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Arable Protocol data")
+            print(f"{nowstring} : issue trying to update Aleph data")
             print(e)
 
         ###########################################################################
