@@ -136,22 +136,23 @@ def create_solana_stakingreward_assets(all_vote_account, datas):
     nodes=[]
 
     for pops_validator in datas["networks"][1]['Validators']:
-        val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']][0]
+        val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']]
         #print(val)
-        total_delegation += val['activatedStake']
-        total_commission += val['commission']
-        total_users += sol_delegators[total_pops_validator]
-        node={
-                "address":pops_validator['Address'],
-                "fee":val['commission'],
-                "slashes":[],
-                "users":sol_delegators[total_pops_validator],
-                "balanceUsd":solana_nb_converter(val['activatedStake']) * float(datas["networks"][1]["price"]),
-                "balanceToken":solana_nb_converter(val['activatedStake'])
-            }
-        nodes.append(node)
-        total_pops_validator += 1
-
+        if len(val) > 0:
+            val = val[0]
+            total_delegation += val['activatedStake']
+            total_commission += val['commission']
+            total_users += sol_delegators[total_pops_validator]
+            node={
+                    "address":pops_validator['Address'],
+                    "fee":val['commission'],
+                    "slashes":[],
+                    "users":sol_delegators[total_pops_validator],
+                    "balanceUsd":solana_nb_converter(val['activatedStake']) * float(datas["networks"][1]["price"]),
+                    "balanceToken":solana_nb_converter(val['activatedStake'])
+                }
+            nodes.append(node)
+            total_pops_validator += 1
 
     datas["networks"][1]['Total_delegation'] = f"{solana_nb_converter(total_delegation)} SOL"
     datas["networks"][1]['Fees'] = total_commission / total_pops_validator
@@ -437,12 +438,17 @@ while 1:
             total_apy = 0
             total_commission = 0
             total_pops_validator = 0
+
             for pops_validator in datas["networks"][1]['Validators']:
-                val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']][0]
-                total_delegation += val['activatedStake']
-                pops_validator['Delegation'] = f"{solana_nb_converter(val['activatedStake'])} SOL"
-                total_commission += val['commission']
-                total_pops_validator += 1
+                val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']]
+                #print(val)
+                if len(val) > 0:
+                    #print(val[0])
+                    val = val[0]
+                    total_delegation += val['activatedStake']
+                    pops_validator['Delegation'] = f"{solana_nb_converter(val['activatedStake'])} SOL"
+                    total_commission += val['commission']
+                    total_pops_validator += 1
 
             datas["networks"][1]['Total_delegation'] = f"{solana_nb_converter(total_delegation)} SOL"
             datas["networks"][1]['Fees'] = total_commission / total_pops_validator
