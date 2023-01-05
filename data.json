@@ -313,17 +313,21 @@
 			"Active": true,
 			"Name": "Aleph Zero",
 			"price": "0.9535",
-			"APY": "12",
+			"APY": "11.65",
 			"Fees": "2",
 			"Info": "Aleph Zero",
-			"Total_delegation": "333308 AZERO",
+			"Total_delegation": "361937 AZERO",
+			"Total_token": 361937,
+			"Symbol" : "AZERO"
+,			"Delegators": 11,
 			"Project_website": "https://alephzero.org/",
 			"Project_documentations": ["https://docs.alephzero.org/aleph-zero/", "https://github.com/alephzero"],
 			"Validators": [{
 				"Address": "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t",
 				"Name": "P-OPS TEAM",
 				"Fees": "2",
-				"Delegation": "333308 AZERO",
+				"Delegation": "361937 AZERO",
+				"Token": 361937,
 				"Stake_link": "https://azero.dev/#/staking/actions"
 			}]
 		},

@@ -626,30 +626,30 @@ while 1:
         ###################### updating Aleph Zero data #####################
         try:
             # statically define
-            datas["networks"][13]['delegators'] = 3
+            #datas["networks"][13]['Delegators'] = 3
 
             #stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
             # fees/rate update
-            datas["networks"][13]['Fees'] = "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][13]['Validators'][0]['Fees'] =  "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+            #datas["networks"][13]['Fees'] = "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
+            #datas["networks"][13]['Validators'][0]['Fees'] =  "2" #f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
 
             # update APY
             #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
             #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-            datas["networks"][13]['APY'] = 18
+            #datas["networks"][13]['APY'] = 18
             # name update
             datas["networks"][13]['Validators'][0]['Name'] = "P-OPS Team" #stats['validator']['description']['moniker']
 
             #total delegation update
-            datas["networks"][13]['Total_delegation'] = "100119.6" #f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
-            datas["networks"][13]['Validators'][0]['Delegation'] = "100119.6 Azero" #{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+            #datas["networks"][13]['Total_delegation'] = "100119.6" #f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
+            #datas["networks"][13]['Validators'][0]['Delegation'] = "100119.6 Azero" #{atto_to_one(int(stats['validator']['tokens']))} ACRE"
 
             # Update $$$
-            datas["networks"][13]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][13]["price"])
+            datas["networks"][13]["balanceUsdTotal"]= datas["networks"][13]["Total_token"] * float(datas["networks"][13]["price"])
 
             # create staking reward assets
-            json_asset=create_stakingreward_assets("AlephZero", "aleph-zero", 100119.6,
-                            datas["networks"][13]["balanceUsdTotal"], 3,
+            json_asset=create_stakingreward_assets("AlephZero", "aleph-zero", datas["networks"][13]["Total_token"],
+                            datas["networks"][13]["balanceUsdTotal"], datas["networks"][13]['Delegators'],
                             float(datas["networks"][13]['Fees']) / 100, "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t")
 
             staking_data["supportedAssets"].append(json_asset)
