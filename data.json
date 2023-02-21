@@ -97,14 +97,14 @@
 			"APY": "11",
 			"Fees": "15",
 			"Info": "The Graph insert description",
-			"Total_delegation": "24929470 GRT",
+			"Total_delegation": "28125510 GRT",
 			"Project_website": "https://thegraph.com/",
 			"Project_documentations": ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
 			"Validators": [{
 				"Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
 				"Name": "p-ops.eth",
 				"Fees": "15",
-				"Delegation": "24929470 GRT",
+				"Delegation": "28125510 GRT",
 				"Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
 			}]
 		},
@@ -316,8 +316,8 @@
 			"APY": "11.65",
 			"Fees": "2",
 			"Info": "Aleph Zero",
-			"Total_delegation": "361937 AZERO",
-			"Total_token": 361937,
+			"Total_delegation": "1576400 AZERO",
+			"Total_token": 1576400,
 			"Symbol" : "AZERO"
 ,			"Delegators": 11,
 			"Project_website": "https://alephzero.org/",
@@ -326,8 +326,8 @@
 				"Address": "5FboCt65vq5on8GBFnHpMy4oWtCsukFPCK8fbHL4gbsyny5t",
 				"Name": "P-OPS TEAM",
 				"Fees": "2",
-				"Delegation": "361937 AZERO",
-				"Token": 361937,
+				"Delegation": "1576400 AZERO",
+				"Token": 1576400,
 				"Stake_link": "https://azero.dev/#/staking/actions"
 			}]
 		},
