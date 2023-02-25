@@ -291,7 +291,7 @@ while 1:
         ###################### updating Axelar data #####################
         try:
             # update delegator numbers
-            validator_delegations = http_json_call("http:///rpc02-axl-m.pops.one:1317/cosmos/staking/v1beta1/validators/axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr/delegations")
+            validator_delegations = http_json_call("http://rpc02-axl-m.pops.one:1317/cosmos/staking/v1beta1/validators/axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr/delegations")
             datas["networks"][7]['delegators'] = len(validator_delegations["delegation_responses"])
 
             axl_stats = http_json_call("http://rpc02-axl-m.pops.one:1317/cosmos/staking/v1beta1/validators/axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr")
