@@ -249,43 +249,48 @@
 			"APY": "12",
 			"Fees": "0",
 			"Info": "",
-			"Total_delegation": "12500 FORTA",
+			"Total_delegation": "22000 FORTA",
 			"Project_website": "https://www.forta.org",
 			"Project_documentations": ["https://docs.forta.network/en/latest/", "https://github.com/forta-network"],
 			"Validators": [{
 					"Address": "0x1749ef5bd330c5551cc691ecf3a83c22e1696f7c",
-					"Name": "0x1749ef5bd330c5551cc691ecf3a83c22e1696f7c",
-					"Fees": "0",
-					"Delegation": "2500 FORTA",
-					"Stake_link": "https://explorer.forta.network/scan-node/0x1749ef5bd330c5551cc691ecf3a83c22e1696f7c"
+					"Name": "AVAX Scanner",
+					"Fees": "5",
+					"Delegation": "4400 FORTA",
+					"Stake_link": "https://app.forta.network/nodePool/1009/",
+					"Scanner_link": "https://explorer.forta.network/scan-node/0x1749ef5bd330c5551cc691ecf3a83c22e1696f7c"
 				},
 				{
 					"Address": "0x2af9612b1f8eca115325f30402de5f64109bd055",
-					"Name": "0x2af9612b1f8eca115325f30402de5f64109bd055",
-					"Fees": "0",
-					"Delegation": "2500 FORTA",
-					"Stake_link": "https://explorer.forta.network/scan-node/0x2af9612b1f8eca115325f30402de5f64109bd055"
+					"Name": "ETH Scanner",
+					"Fees": "5",
+					"Delegation": "4400 FORTA",
+					"Stake_link": "https://app.forta.network/nodePool/0180/",
+					"Scanner_link": "https://explorer.forta.network/scan-node/0x2af9612b1f8eca115325f30402de5f64109bd055"
 				},
 				{
 					"Address": "0x2e27f5a73032264e90cca434aacfc70bdb8822c8",
-					"Name": "0x2e27f5a73032264e90cca434aacfc70bdb8822c8",
-					"Fees": "0",
-					"Delegation": "2500 FORTA",
-					"Stake_link": "https://explorer.forta.network/scan-node/0x2e27f5a73032264e90cca434aacfc70bdb8822c8"
+					"Name": "FTM Scanner",
+					"Fees": "5",
+					"Delegation": "4400 FORTA",
+					"Stake_link": "https://app.forta.network/nodePool/0806/",
+					"Scanner_link": "https://explorer.forta.network/scan-node/0x2e27f5a73032264e90cca434aacfc70bdb8822c8"
 				},
 				{
 					"Address": "0x3e8c1d2d738295e9cde61fc4fce052391f794032",
-					"Name": "0x3e8c1d2d738295e9cde61fc4fce052391f794032",
-					"Fees": "0",
-					"Delegation": "2500 FORTA",
-					"Stake_link": "https://explorer.forta.network/scan-node/0x3e8c1d2d738295e9cde61fc4fce052391f794032"
+					"Name": "BSC Scanner",
+					"Fees": "5",
+					"Delegation": "4400 FORTA",
+					"Stake_link": "https://app.forta.network/nodePool/0453/",
+					"Scanner_link": "https://explorer.forta.network/scan-node/0x3e8c1d2d738295e9cde61fc4fce052391f794032"
 				},
 				{
 					"Address": "0x9bec9ddd76155866513f97c3e6e851e6631f0e02",
-					"Name": "0x9bec9ddd76155866513f97c3e6e851e6631f0e02",
-					"Fees": "0",
-					"Delegation": "2500 FORTA",
-					"Stake_link": "https://explorer.forta.network/scan-node/0x9bec9ddd76155866513f97c3e6e851e6631f0e02"
+					"Name": "Opt Scanner",
+					"Fees": "5",
+					"Delegation": "4400 FORTA",
+					"Stake_link": "https://app.forta.network/nodePool/0283/",
+					"Scanner_link": "https://explorer.forta.network/scan-node/0x9bec9ddd76155866513f97c3e6e851e6631f0e02"
 				}
 			]
 		},
