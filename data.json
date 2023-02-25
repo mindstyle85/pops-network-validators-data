@@ -265,7 +265,7 @@
 					"Name": "ETH Scanner",
 					"Fees": "5",
 					"Delegation": "4400 FORTA",
-					"Stake_link": "https://app.forta.network/nodePool/0180/",
+					"Stake_link": "https://app.forta.network/nodePool/180/",
 					"Scanner_link": "https://explorer.forta.network/scan-node/0x2af9612b1f8eca115325f30402de5f64109bd055"
 				},
 				{
@@ -273,7 +273,7 @@
 					"Name": "FTM Scanner",
 					"Fees": "5",
 					"Delegation": "4400 FORTA",
-					"Stake_link": "https://app.forta.network/nodePool/0806/",
+					"Stake_link": "https://app.forta.network/nodePool/806/",
 					"Scanner_link": "https://explorer.forta.network/scan-node/0x2e27f5a73032264e90cca434aacfc70bdb8822c8"
 				},
 				{
@@ -281,7 +281,7 @@
 					"Name": "BSC Scanner",
 					"Fees": "5",
 					"Delegation": "4400 FORTA",
-					"Stake_link": "https://app.forta.network/nodePool/0453/",
+					"Stake_link": "https://app.forta.network/nodePool/453/",
 					"Scanner_link": "https://explorer.forta.network/scan-node/0x3e8c1d2d738295e9cde61fc4fce052391f794032"
 				},
 				{
@@ -289,7 +289,7 @@
 					"Name": "Opt Scanner",
 					"Fees": "5",
 					"Delegation": "4400 FORTA",
-					"Stake_link": "https://app.forta.network/nodePool/0283/",
+					"Stake_link": "https://app.forta.network/nodePool/283/",
 					"Scanner_link": "https://explorer.forta.network/scan-node/0x9bec9ddd76155866513f97c3e6e851e6631f0e02"
 				}
 			]
