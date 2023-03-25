@@ -187,7 +187,7 @@ while 1:
         staking_data["supportedAssets"] = []
 
         # updating price from coingecko API
-        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph, stafi, akash-network, umee, covalent, agoric, axelar, point-network, forta, arable-protocol, aleph-zero', vs_currencies='usd')
+        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph,stafi, akash-network, umee, covalent, agoric,axelar, point-network, forta, arable-protocol,aleph-zero, quicksilver', vs_currencies='usd')
         print (allprice)
         datas["networks"][0]["price"] = str(allprice['harmony']['usd'])
         datas["networks"][1]["price"] = str(allprice['solana']['usd'])
@@ -204,7 +204,7 @@ while 1:
         datas["networks"][11]["price"] = str(allprice['forta']['usd'])
         datas["networks"][12]["price"] = str(allprice['arable-protocol']['usd'])
         datas["networks"][13]["price"] = str(allprice['aleph-zero']['usd'])
-        datas["networks"][14]["price"] = 0
+        datas["networks"][14]["price"] = str(allprice['quicksilver']['usd'])
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
