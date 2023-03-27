@@ -341,7 +341,7 @@
 			"Active": true,
 			"Name": "Quicksilver",
 			"price": "0",
-			"APY": "18",
+			"APY": "70",
 			"Fees": "5",
 			"Info": "Quicksilver",
 			"Total_delegation": "259353 QCK",
@@ -353,6 +353,44 @@
 				"Fees": "5",
 				"Delegation": "259353 QCK",
 				"Stake_link": "https://wallet.keplr.app/chains/quicksilver?modal=validator&chain=quicksilver-1&validator_address=quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxywg"
+			}]
+		},
+		{
+			"ID": "16",
+			"Active": true,
+			"Name": "Aura",
+			"price": "0",
+			"APY": "18",
+			"Fees": "5",
+			"Info": "Aura",
+			"Total_delegation": "57500 aura",
+			"Project_website": "https://aura.network/",
+			"Project_documentations": ["https://docs.aura.network/", "https://github.com/aura-nw"],
+			"Validators": [{
+				"Address": "auravaloper1hmmlyt7mchy6t49z0hmacsem3pyljpzhv9leat",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "57500 aura",
+				"Stake_link": "https://aurascan.io/validators/auravaloper1hmmlyt7mchy6t49z0hmacsem3pyljpzhv9leat"
+			}]
+		},
+		{
+			"ID": "17",
+			"Active": true,
+			"Name": "Uptick",
+			"price": "0",
+			"APY": "18",
+			"Fees": "5",
+			"Info": "Uptick",
+			"Total_delegation": "5002049 uptick",
+			"Project_website": "https://www.uptick.network/",
+			"Project_documentations": ["https://docs.uptick.network/", "https://github.com/UptickNetwork"],
+			"Validators": [{
+				"Address": "uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "5002049 uptick",
+				"Stake_link": "https://uptick.explorers.guru/validator/uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v"
 			}]
 		}
 	]
