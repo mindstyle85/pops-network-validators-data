@@ -1,9 +1,7 @@
+python-dotenv
 flask
 marshmallow
-pycoingecko
 flask-cors
 # For harmony One RPCs
 pathlib
 pyhmy
-# for Solana RPCs
-solana

@@ -1,15 +1,17 @@
-from networks.harmony import Harmony
 import json
 import time
+import os
 from datetime import datetime
 import requests
 from requests.exceptions import HTTPError
 from pyhmy import staking
-from solana.rpc.api import Client as Solana_Client
 from typing import Any
+from dotenv import load_dotenv
 
-from pycoingecko import CoinGeckoAPI
-cg = CoinGeckoAPI()
+load_dotenv()
+
+CMC_API_KEY = os.getenv('CMC_API_KEY')
+SOLANA_RPC = os.getenv('SOLANA_RPC')
 
 def is_float(element: Any) -> bool:
     try:
@@ -24,22 +26,13 @@ def atto_to_one(attonumber):
 def solana_nb_converter(number):
     return int(number / (10 ** 9))
 
-def uumee_to_umee(uumee):
-    return int(uumee / (10 ** 6))
-
-def uaxl_to_axl(uaxl):
-    return int(uaxl / (10 ** 6))
-
-def ubld_to_bld(ubld):
-    return int(ubld / (10 ** 6))
-
-def uakt_to_akt(uakt):
-    return int(uakt / (10 ** 6))
+def atto_to_cqt(atto):
+    return int(atto / (10 ** 18))
 
 def micro_to_none(unumber):
     return int(unumber / (10 ** 6))
 
-def atto_to_cqt(atto):
+def atto_to_none(atto):
     return int(atto / (10 ** 18))
 
 def http_json_call(url):
@@ -47,12 +40,11 @@ def http_json_call(url):
         r = requests.get(url)
         r.raise_for_status()
     except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')  # Python 3.6
+        print(f'HTTP error occurred: {http_err}')  # Python 3.6
     except Exception as err:
-            print(f'Other error occurred: {err}')  # Python 3.6
+        print(f'Other error occurred: {err}')  # Python 3.6
     else:
-        content = json.loads(r.content)
-        return content
+        return json.loads(r.content)
 
 def get_price_from_mexc(ticker1, ticker2):
     #Price from MEXC
@@ -170,8 +162,73 @@ def create_solana_stakingreward_assets(all_vote_account, datas):
         }
     return json_data
 
+# chainname ie umee
+# apiurl ie http://val01.umee.m.pops.one:1317
+# valoper ie umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6
+# datas the json that contains all pops datas
+# dataindex, the index representing the element of the chain, ie 8 for umee
+# funcconvert is a func object
+# stakingrewardslugname depends on staking reward slug name (ie umee for Umee)
+# list of assets can be seen here https://api-beta.stakingrewards.com/v1/list/assets
+def update_tendermint_chain(chainname, apiurl, valoper, dataindex, denom, funcconvert, stakingrewardslugname, datas):
+    
+    print (f"{chainname} updates ...")
+    try:
+        # update delegator numbers
+        validator_delegations = http_json_call(f"{apiurl}/cosmos/staking/v1beta1/validators/{valoper}/delegations")
+        datas["networks"][dataindex]['delegators'] = len(validator_delegations["delegation_responses"])
 
-Solana_http_client = Solana_Client("https://api.mainnet-beta.solana.com")
+        network_stats = http_json_call(f"{apiurl}/cosmos/staking/v1beta1/validators/{valoper}")
+        # fees/rate update
+        datas["networks"][dataindex]['Fees'] = f"{float('%.2f' % float(network_stats['validator']['commission']['commission_rates']['rate']))*100}"
+        datas["networks"][dataindex]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(network_stats['validator']['commission']['commission_rates']['rate']))*100}"
+
+        # update APY
+        #inflation_stats = http_json_call(f"{apiurl}/cosmos/mint/v1beta1/inflation")
+        #datas["networks"][dataindex]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+
+        # name update
+        datas["networks"][dataindex]['Validators'][0]['Name'] = network_stats['validator']['description']['moniker']
+
+        #total delegation update
+        datas["networks"][dataindex]['Total_delegation'] = f"{funcconvert(int(network_stats['validator']['tokens']))} {denom}"
+        datas["networks"][dataindex]['Validators'][0]['Delegation'] = f"{funcconvert(int(network_stats['validator']['tokens']))} {denom}"
+
+        # Update $$$
+        datas["networks"][dataindex]["balanceUsdTotal"] = funcconvert(int(network_stats['validator']['tokens'])) * float(datas["networks"][dataindex]["price"])
+
+        # create staking reward assets
+        json_asset=create_stakingreward_assets(chainname, stakingrewardslugname, funcconvert(int(network_stats['validator']['tokens'])),
+                        datas["networks"][dataindex]["balanceUsdTotal"], datas["networks"][dataindex]['delegators'],
+                        float(datas["networks"][dataindex]['Fees']) / 100, valoper)
+        staking_data["supportedAssets"].append(json_asset)
+
+        with open('data.json', 'w') as outfile:
+            json.dump(datas, outfile)
+        print (f"{chainname} data updated")
+    except Exception as e:
+        nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
+        print(f"{nowstring} : issue trying to update {chainname} data")
+        print(e)
+
+
+def get_solana_votes():
+    try:
+        url = SOLANA_RPC
+        
+        data = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "getVoteAccounts",
+        }
+        r = requests.post(url, json=data)
+    except HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}')  # Python 3.6
+    except Exception as err:
+            print(f'Other error occurred: {err}')  # Python 3.6
+    else:
+        content = json.loads(r.content)
+        return content
 
 while 1:
     #load the updated data 
@@ -186,29 +243,64 @@ while 1:
         staking_data["users"] = 0
         staking_data["supportedAssets"] = []
 
-        # updating price from coingecko API
-        allprice = cg.get_price(ids='harmony, solana, avalanche-2, the-graph,stafi, akash-network, umee, covalent, agoric,axelar, point-network, forta, arable-protocol,aleph-zero, quicksilver', vs_currencies='usd')
-        print (allprice)
-        datas["networks"][0]["price"] = str(allprice['harmony']['usd'])
-        datas["networks"][1]["price"] = str(allprice['solana']['usd'])
-        datas["networks"][2]["price"] = str(allprice['avalanche-2']['usd'])
-        datas["networks"][3]["price"] = str(allprice['the-graph']['usd'])
-        datas["networks"][4]["price"] = str(allprice['stafi']['usd'])
-        datas["networks"][5]["price"] = str(allprice['akash-network']['usd'])
-        datas["networks"][6]["price"] = str(allprice['agoric']['usd'])
-        datas["networks"][7]["price"] = str(allprice['axelar']['usd'])
-        datas["networks"][8]["price"] = str(allprice['umee']['usd'])
-        datas["networks"][9]["price"] = str(allprice['covalent']['usd'])
-        #datas["networks"][10]["price"] = str(get_price_from_mexc('POINT','USDT'))
-        datas["networks"][10]["price"] = str(allprice['point-network']['usd'])
-        datas["networks"][11]["price"] = str(allprice['forta']['usd'])
-        datas["networks"][12]["price"] = str(allprice['arable-protocol']['usd'])
-        datas["networks"][13]["price"] = str(allprice['aleph-zero']['usd'])
-        datas["networks"][14]["price"] = str(allprice['quicksilver']['usd'])
+        # updating price from API
+        coinlist="harmony,solana,avalanche,the-graph,stafi,akash-network,umee,covalent,agoric,axelar,point-network,forta,arable-protocol,aleph-zero,aura-network"
+        #uptick / quicksilver not supporter on CMC
+        url=f"https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?slug={coinlist}&CMC_PRO_API_KEY={CMC_API_KEY}"
+        allprice=http_json_call(url)
+
+        i=0
+        for network in datas["networks"]:
+            cmcid=network["cmc_id"]
+            if cmcid != 0:
+                price=float('%.3f' % allprice["data"][str(cmcid)]["quote"]["USD"]["price"])
+                print(f"name={network['Name']} cmcid={cmcid} price={price}")
+                network["price"] = price
+            i = i + 1
 
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
-        
+
+        #########################################################################
+        ###################### updating solana related data#####################
+        try:
+            all_vote_account = get_solana_votes()['result']['current']
+            #print (all_vote_account)
+
+            total_delegation = 0
+            total_apy = 0
+            total_commission = 0
+            total_pops_validator = 0
+
+            for pops_validator in datas["networks"][1]['Validators']:
+                val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']]
+                #print(val)
+                if len(val) > 0:
+                    val = val[0]
+                    total_delegation += val['activatedStake']
+                    pops_validator['Delegation'] = f"{solana_nb_converter(val['activatedStake'])} SOL"
+                    total_commission += val['commission']
+                    total_pops_validator += 1
+
+            datas["networks"][1]['Total_delegation'] = f"{solana_nb_converter(total_delegation)} SOL"
+            datas["networks"][1]['Fees'] = total_commission / total_pops_validator
+
+            # Update $$$
+            datas["networks"][1]["balanceUsdTotal"]= solana_nb_converter(total_delegation) * float(datas["networks"][1]["price"])
+
+            # create staking reward assets
+            json_asset=create_solana_stakingreward_assets(all_vote_account, datas)
+            staking_data["supportedAssets"].append(json_asset)
+
+            # # missing APY collection for now leaving it as static data
+            with open('data.json', 'w') as outfile:
+                json.dump(datas, outfile)
+            print ("Solana data updated")
+        except Exception as e:
+            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
+            print(f"{nowstring} : issue trying to update Solana data")
+            print(e)
+
         #########################################################################
         ###################### updating harmony related data#####################
         try:
@@ -249,148 +341,41 @@ while 1:
             print(e)
 
         ###########################################################################
-        ###################### updating umee data #####################
-        try:
-            # update delegator numbers
-            validator_delegations = http_json_call("http://val01.umee.m.pops.one:1317/cosmos/staking/v1beta1/validators/umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6/delegations")
-            datas["networks"][8]['delegators'] = len(validator_delegations["delegation_responses"])
+        ###################### updating Umee related data #####################
+        apiurl="http://val01.umee.m.pops.one:1317"
+        valoper="umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
+        dataindex=8
+        funcconvert=micro_to_none
+        stakingrewardslugname="umee"
+        update_tendermint_chain("Umee", apiurl, valoper, dataindex, "UMEE", funcconvert, stakingrewardslugname, datas)
 
-            umee_stats = http_json_call("http://val01.umee.m.pops.one:1317/cosmos/staking/v1beta1/validators/umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6")
-            # fees/rate update
-            datas["networks"][8]['Fees'] = f"{float('%.2f' % float(umee_stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][8]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(umee_stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            inflation_stats = http_json_call("http://val01.umee.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            datas["networks"][8]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-
-            # name update
-            datas["networks"][8]['Validators'][0]['Name'] = umee_stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][8]['Total_delegation'] = f"{uumee_to_umee(int(umee_stats['validator']['tokens']))} Umee"
-            datas["networks"][8]['Validators'][0]['Delegation'] = f"{uumee_to_umee(int(umee_stats['validator']['tokens']))} Umee"
-
-            # Update $$$
-            datas["networks"][8]["balanceUsdTotal"] = uumee_to_umee(int(umee_stats['validator']['tokens'])) * float(datas["networks"][8]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Umee", "umee", uumee_to_umee(int(umee_stats['validator']['tokens'])),
-                            datas["networks"][8]["balanceUsdTotal"], datas["networks"][8]['delegators'],
-                            float(datas["networks"][8]['Fees']) / 100, "umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Umee data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update umee data")
-            print(e)
         ###########################################################################
-        ###################### updating Axelar data #####################
-        try:
-            # update delegator numbers
-            validator_delegations = http_json_call("http://rpc02-axl-m.pops.one:1317/cosmos/staking/v1beta1/validators/axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr/delegations")
-            datas["networks"][7]['delegators'] = len(validator_delegations["delegation_responses"])
+        ###################### updating Axelar related data #####################
+        apiurl="http://rpc02-axl-m.pops.one:1317"
+        valoper="axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr"
+        dataindex=7
+        funcconvert=micro_to_none
+        stakingrewardslugname="axelar"
+        update_tendermint_chain("Axelar", apiurl, valoper, dataindex, "AXL", funcconvert, stakingrewardslugname, datas)
 
-            axl_stats = http_json_call("http://rpc02-axl-m.pops.one:1317/cosmos/staking/v1beta1/validators/axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr")
-            # fees/rate update
-            datas["networks"][7]['Fees'] = f"{float('%.2f' % float(axl_stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][7]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(axl_stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            inflation_stats = http_json_call("http://rpc02-axl-m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            datas["networks"][7]['APY'] = '18.6' #'%.2f' % (float(inflation_stats['inflation']) * 100)
-
-            # name update
-            datas["networks"][7]['Validators'][0]['Name'] = axl_stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][7]['Total_delegation'] = f"{uaxl_to_axl(int(axl_stats['validator']['tokens']))} AXL"
-            datas["networks"][7]['Validators'][0]['Delegation'] = f"{uaxl_to_axl(int(axl_stats['validator']['tokens']))} AXL"
-
-            # Update $$$
-            datas["networks"][7]["balanceUsdTotal"] = uaxl_to_axl(int(axl_stats['validator']['tokens'])) * float(datas["networks"][7]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Axelar", "axelar", uaxl_to_axl(int(axl_stats['validator']['tokens'])),
-                            datas["networks"][7]["balanceUsdTotal"], datas["networks"][7]['delegators'],
-                            float(datas["networks"][7]['Fees']) / 100, "axelarvaloper1gswfh889avkccdt5adqvglel9ttjglhdl0atqr")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("AXL data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Axelar data")
-            print(e)
         ###########################################################################
-        ###################### updating Agoric data #####################
-        try:
-            # update delegator numbers
-            validator_delegations = http_json_call("http://val01.bld.m.pops.one:1317/cosmos/staking/v1beta1/validators/agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv/delegations")
-            datas["networks"][6]['delegators'] = len(validator_delegations["delegation_responses"])
+        ###################### updating Agoric related data #####################
+        apiurl="http://val01.bld.m.pops.one:1317"
+        valoper="agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
+        dataindex=6
+        funcconvert=micro_to_none
+        stakingrewardslugname="agoric"
+        update_tendermint_chain("Agoric", apiurl, valoper, dataindex, "BLD", funcconvert, stakingrewardslugname, datas)
 
-            bld_stats = http_json_call("http://val01.bld.m.pops.one:1317/cosmos/staking/v1beta1/validators/agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv")
-            # fees/rate update
-            datas["networks"][6]['Fees'] = f"{float('%.2f' % float(bld_stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][6]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(bld_stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            inflation_stats = http_json_call("http://val01.bld.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            datas["networks"][6]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-
-            # name update
-            datas["networks"][6]['Validators'][0]['Name'] = bld_stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][6]['Total_delegation'] = f"{ubld_to_bld(int(bld_stats['validator']['tokens']))} BLD"
-            datas["networks"][6]['Validators'][0]['Delegation'] = f"{ubld_to_bld(int(bld_stats['validator']['tokens']))} BLD"
-
-            # Update $$$
-            datas["networks"][6]["balanceUsdTotal"] = ubld_to_bld(int(bld_stats['validator']['tokens'])) * float(datas["networks"][6]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Agoric", "agoric", ubld_to_bld(int(bld_stats['validator']['tokens'])),
-                            datas["networks"][6]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
-                            float(datas["networks"][6]['Fees']) / 100, "agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Agoric data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Agoric data")
-            print(e)    
         ###########################################################################
-        ###################### updating Akash data #####################
-        # try:
-        #     stats = http_json_call("http://val01.akt.m.pops.one:1317/staking/validators/akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7")
-        #     # fees/rate update
-        #     datas["networks"][5]['Fees'] = f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
-        #     datas["networks"][5]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['result']['commission']['commission_rates']['rate']))*100}"
-
-        #     # update APY
-        #     inflation_stats = http_json_call("http://val01.akt.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-        #     datas["networks"][5]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-
-        #     # name update
-        #     datas["networks"][5]['Validators'][0]['Name'] = stats['result']['description']['moniker']
-
-        #     #total delegation update
-        #     datas["networks"][5]['Total_delegation'] = f"{uakt_to_akt(int(stats['result']['tokens']))} AKT"
-        #     datas["networks"][5]['Validators'][0]['Delegation'] = f"{uakt_to_akt(int(stats['result']['tokens']))} AKT"
-
-        #     with open('data.json', 'w') as outfile:
-        #         json.dump(datas, outfile)
-        #     print ("Akash data updated")
-        # except Exception as e:
-        #     nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-        #     print(f"{nowstring} : issue trying to update Akash data")
-        #     print(e)
+        ###################### updating Akash related data #####################
+        #apiurl="http://val01.akt.m.pops.one:1317"
+        #valoper="akashvaloper1sqrcxk0zxx6uwpjl5ylug2pd467vyxzt4sqze7"
+        #dataindex=5
+        #funcconvert=micro_to_none
+        #stakingrewardslugname="akash" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
+        #update_tendermint_chain("Akash", apiurl, valoper, dataindex, "AKT", funcconvert, stakingrewardslugname, datas)  
+ 
         ###########################################################################
         ###################### updating Covalent data #####################
         try:
@@ -428,85 +413,15 @@ while 1:
             nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
             print(f"{nowstring} : issue trying to update CQT data")
             print(e)
-        #########################################################################
-        ###################### updating solana related data#####################
-        try:
-            all_vote_account = Solana_http_client.get_vote_accounts()["result"]["current"]
-            #print (all_vote_account)
 
-            total_delegation = 0
-            total_apy = 0
-            total_commission = 0
-            total_pops_validator = 0
-
-            for pops_validator in datas["networks"][1]['Validators']:
-                val = [vote_account for vote_account in all_vote_account if vote_account['votePubkey'] == pops_validator['Address']]
-                #print(val)
-                if len(val) > 0:
-                    #print(val[0])
-                    val = val[0]
-                    total_delegation += val['activatedStake']
-                    pops_validator['Delegation'] = f"{solana_nb_converter(val['activatedStake'])} SOL"
-                    total_commission += val['commission']
-                    total_pops_validator += 1
-
-            datas["networks"][1]['Total_delegation'] = f"{solana_nb_converter(total_delegation)} SOL"
-            datas["networks"][1]['Fees'] = total_commission / total_pops_validator
-
-            # Update $$$
-            datas["networks"][1]["balanceUsdTotal"]= solana_nb_converter(total_delegation) * float(datas["networks"][1]["price"])
-
-            # create staking reward assets
-            json_asset=create_solana_stakingreward_assets(all_vote_account, datas)
-            staking_data["supportedAssets"].append(json_asset)
-
-            # # missing APY collection for now leaving it as static data
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Solana data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Solana data")
-            print(e)
         ###########################################################################
-        ###################### updating Point data #####################
-        try:
-            # update delegator number
-            validator_delegations = http_json_call("http://val01.point.m.pops.one:1317/cosmos/staking/v1beta1/validators/pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0/delegations")
-            datas["networks"][10]['delegators'] = len(validator_delegations["delegation_responses"])
-
-            stats = http_json_call("http://val01.point.m.pops.one:1317/cosmos/staking/v1beta1/validators/pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0")
-            # fees/rate update
-            datas["networks"][10]['Fees'] = f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][10]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            #inflation_stats = http_json_call("http://val01.point.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            #datas["networks"][5]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-            datas["networks"][10]['APY'] = 1600.00
-            # name update
-            datas["networks"][10]['Validators'][0]['Name'] = stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][10]['Total_delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} POINT"
-            datas["networks"][10]['Validators'][0]['Delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} POINT"
-
-            # Update $$$
-            datas["networks"][10]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][10]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Point", "point", atto_to_one(int(stats['validator']['tokens'])),
-                            datas["networks"][10]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
-                            float(datas["networks"][10]['Fees']) / 100, "pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Points data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Point Network data")
-            print(e)
+        ###################### updating Point related data #####################
+        apiurl="http://val01.point.m.pops.one:1317"
+        valoper="pointvaloper10w02hm23zy08w7ycx70xtn7j59yfjl8kypl5p0"
+        dataindex=10
+        funcconvert=atto_to_none
+        stakingrewardslugname="point"
+        update_tendermint_chain("Point", apiurl, valoper, dataindex, "POINT", funcconvert, stakingrewardslugname, datas)
 
         #########################################################################
         ###################### updating avax related data#######################
@@ -549,84 +464,22 @@ while 1:
         staking_data["supportedAssets"].append(json_asset)
 
         ###########################################################################
-        ###################### updating Arable data #####################
-        try:
-            # update delegator number
-            validator_delegations = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g/delegations")
-            datas["networks"][12]['delegators'] = len(validator_delegations["delegation_responses"])
-
-            stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/staking/v1beta1/validators/acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
-            # fees/rate update
-            datas["networks"][12]['Fees'] = f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][12]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-            datas["networks"][12]['APY'] = 18
-            # name update
-            datas["networks"][12]['Validators'][0]['Name'] = stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][12]['Total_delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
-            datas["networks"][12]['Validators'][0]['Delegation'] = f"{atto_to_one(int(stats['validator']['tokens']))} ACRE"
-
-            # Update $$$
-            datas["networks"][12]["balanceUsdTotal"]=atto_to_one(int(stats['validator']['tokens'])) * float(datas["networks"][12]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Arable", "arable-protocol", atto_to_one(int(stats['validator']['tokens'])),
-                            datas["networks"][12]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
-                            float(datas["networks"][12]['Fees']) / 100, "acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Arable data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Arable Protocol data")
-            print(e)
+        ###################### updating Arable related data #####################
+        apiurl="http://val01.acre.m.pops.one:1317"
+        valoper="acrevaloper1aev5mdduh578z5z894kk2cauxqntjfj6w7yq9g"
+        dataindex=12
+        funcconvert=atto_to_none
+        stakingrewardslugname="arable-protocol"
+        update_tendermint_chain("Arable", apiurl, valoper, dataindex, "ACRE", funcconvert, stakingrewardslugname, datas)
 
         ###########################################################################
-        ###################### updating Quicksilver data #####################
-        try:
-            # update delegator number
-            validator_delegations = http_json_call("http://val01.qck.m.pops.one:1327/cosmos/staking/v1beta1/validators/quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw/delegations")
-            datas["networks"][14]['delegators'] = len(validator_delegations["delegation_responses"])
-
-            stats = http_json_call("http://val01.qck.m.pops.one:1327/cosmos/staking/v1beta1/validators/quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw")
-            # fees/rate update
-            datas["networks"][14]['Fees'] = f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-            datas["networks"][14]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(stats['validator']['commission']['commission_rates']['rate']))*100}"
-
-            # update APY
-            #inflation_stats = http_json_call("http://val01.acre.m.pops.one:1317/cosmos/mint/v1beta1/inflation")
-            #datas["networks"][12]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
-            datas["networks"][14]['APY'] = 18
-            # name update
-            datas["networks"][14]['Validators'][0]['Name'] = stats['validator']['description']['moniker']
-
-            #total delegation update
-            datas["networks"][14]['Total_delegation'] = f"{micro_to_none(int(stats['validator']['tokens']))} QCK"
-            datas["networks"][14]['Validators'][0]['Delegation'] = f"{micro_to_none(int(stats['validator']['tokens']))} QCK"
-
-            # Update $$$
-            datas["networks"][14]["balanceUsdTotal"]=micro_to_none(int(stats['validator']['tokens'])) * float(datas["networks"][12]["price"])
-
-            # create staking reward assets
-            json_asset=create_stakingreward_assets("Quicksilver", "quicksilver", micro_to_none(int(stats['validator']['tokens'])),
-                            datas["networks"][14]["balanceUsdTotal"], len(validator_delegations["delegation_responses"]),
-                            float(datas["networks"][14]['Fees']) / 100, "quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw")
-            staking_data["supportedAssets"].append(json_asset)
-
-            with open('data.json', 'w') as outfile:
-                json.dump(datas, outfile)
-            print ("Quicksilver data updated")
-        except Exception as e:
-            nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-            print(f"{nowstring} : issue trying to update Quicsilver data")
-            print(e)
+        ###################### updating the Quicksilver related data #####################
+        apiurl="http://val01.qck.m.pops.one:1327"
+        valoper="quickvaloper19c276ue7a2hcrt5afpgsy2rstq9gkg7frjpxyw"
+        dataindex=14
+        funcconvert=micro_to_none
+        stakingrewardslugname="quicksilver" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
+        update_tendermint_chain("Quicksilver", apiurl, valoper, dataindex, "QCK", funcconvert, stakingrewardslugname, datas)
 
         ###########################################################################
         ###################### updating Aleph Zero data #####################
@@ -669,6 +522,24 @@ while 1:
             print(e)
 
         ###########################################################################
+        ###################### updating the aura related data #####################
+        apiurl="https://aura.api.kjnodes.com"
+        valoper="auravaloper1hmmlyt7mchy6t49z0hmacsem3pyljpzhv9leat"
+        dataindex=15
+        funcconvert=micro_to_none
+        stakingrewardslugname="aura-network" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
+        update_tendermint_chain("Aura", apiurl, valoper, dataindex, "Aura", funcconvert, stakingrewardslugname, datas)
+
+        ###########################################################################
+        ###################### updating the uptick related data #####################
+        apiurl="https://uptick.api.kjnodes.com"
+        valoper="uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v"
+        dataindex=16
+        funcconvert=atto_to_none
+        stakingrewardslugname="uptick" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
+        update_tendermint_chain("Uptick", apiurl, valoper, dataindex, "Uptick", funcconvert, stakingrewardslugname, datas)
+
+        ###########################################################################
         ###################### updating the graph related data#####################
         # get the name : curl -X GET https://api.oracleminer.com/graph/ens/0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7
         # get indexer info : curl -X GET https://api.oracleminer.com/graph/indexer/0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7
@@ -698,6 +569,6 @@ while 1:
 
     except Exception as e:
         nowstring = now.strftime("%d/%m/%Y, %H:%M:%S")
-        print(f"{nowstring} : An exception occurred, but let's continue and wait for the next 1 min call")
+        print(f"{nowstring} : An exception occurred, but let's continue and wait for the next 10 min call")
         print(e)
-    time.sleep(60)
+    time.sleep(600)

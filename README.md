@@ -6,7 +6,7 @@ This project is building an API gateway exposing the POPS network validator data
 docker build --tag network-validator-data .
 
 ## run the image
-docker run -p 80:5000 --rm network-validator-data
+docker run -p 80:5000 -v "$(pwd)"/.env:/.env:ro --rm network-validator-data 
 
 
 ## data update logic
