@@ -101,14 +101,14 @@
 			"Fees": "15",
 			"cmc_id": 6719,
 			"Info": "The Graph insert description",
-			"Total_delegation": "28125510 GRT",
+			"Total_delegation": "29088066 GRT",
 			"Project_website": "https://thegraph.com/",
 			"Project_documentations": ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
 			"Validators": [{
 				"Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
 				"Name": "p-ops.eth",
 				"Fees": "15",
-				"Delegation": "28125510 GRT",
+				"Delegation": "29088066 GRT",
 				"Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
 			}]
 		},
