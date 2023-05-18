@@ -101,14 +101,14 @@
 			"Fees": "15",
 			"cmc_id": 6719,
 			"Info": "The Graph insert description",
-			"Total_delegation": "28125510 GRT",
+			"Total_delegation": "29088066 GRT",
 			"Project_website": "https://thegraph.com/",
 			"Project_documentations": ["https://thegraph.com/docs/", "https://medium.com/@graphprotocol"],
 			"Validators": [{
 				"Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
 				"Name": "p-ops.eth",
 				"Fees": "15",
-				"Delegation": "28125510 GRT",
+				"Delegation": "29088066 GRT",
 				"Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
 			}]
 		},
@@ -374,19 +374,19 @@
 			"ID": "16",
 			"Active": true,
 			"Name": "Aura",
-			"price": "0",
-			"APY": "18",
+			"price": "0.067",
+			"APY": "10",
 			"Fees": "5",
 			"cmc_id": 20326,
 			"Info": "Aura",
-			"Total_delegation": "57500 aura",
+			"Total_delegation": "1008270 aura",
 			"Project_website": "https://aura.network/",
 			"Project_documentations": ["https://docs.aura.network/", "https://github.com/aura-nw"],
 			"Validators": [{
 				"Address": "auravaloper1hmmlyt7mchy6t49z0hmacsem3pyljpzhv9leat",
 				"Name": "P-OPS TEAM",
 				"Fees": "5",
-				"Delegation": "57500 aura",
+				"Delegation": "1008270 aura",
 				"Stake_link": "https://aurascan.io/validators/auravaloper1hmmlyt7mchy6t49z0hmacsem3pyljpzhv9leat"
 			}]
 		},
@@ -395,19 +395,39 @@
 			"Active": true,
 			"Name": "Uptick",
 			"price": "0",
-			"APY": "18",
+			"APY": "10",
 			"Fees": "5",
 			"cmc_id": 0,
 			"Info": "Uptick",
-			"Total_delegation": "5002049 uptick",
+			"Total_delegation": "2302049 uptick",
 			"Project_website": "https://www.uptick.network/",
 			"Project_documentations": ["https://docs.uptick.network/", "https://github.com/UptickNetwork"],
 			"Validators": [{
 				"Address": "uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v",
 				"Name": "P-OPS TEAM",
 				"Fees": "5",
-				"Delegation": "5002049 uptick",
+				"Delegation": "2302049 uptick",
 				"Stake_link": "https://uptick.explorers.guru/validator/uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v"
+			}]
+		},
+		{
+			"ID": "18",
+			"Active": true,
+			"Name": "Sui",
+			"price": "1.19",
+			"APY": "8",
+			"Fees": "5",
+			"cmc_id": 0,
+			"Info": "Sui",
+			"Total_delegation": "105240000 sui",
+			"Project_website": "https://sui.io/",
+			"Project_documentations": ["https://docs.sui.io/", "https://github.com/MystenLabs"],
+			"Validators": [{
+				"Address": "0xd1dbb08191b4ae8e227935669c1862ba75a41cd7df5970002eafb2f365c32ed8",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "105240000 sui",
+				"Stake_link": "https://suiexplorer.com/validator/0xd1dbb08191b4ae8e227935669c1862ba75a41cd7df5970002eafb2f365c32ed8?network=mainnet"
 			}]
 		}
 	]
