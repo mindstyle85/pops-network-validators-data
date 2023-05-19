@@ -29,8 +29,11 @@ def solana_nb_converter(number):
 def atto_to_cqt(atto):
     return int(atto / (10 ** 18))
 
-def micro_to_none(unumber):
-    return int(unumber / (10 ** 6))
+def micro_to_none(number):
+    return int(number / (10 ** 6))
+
+def nano_to_none(number):
+    return int(number / (10 ** 9))
 
 def atto_to_none(atto):
     return int(atto / (10 ** 18))
@@ -46,6 +49,23 @@ def http_json_call(url):
     else:
         return json.loads(r.content)
 
+def http_post_request(method, params, url):
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = {
+        "jsonrpc": "2.0",
+        "method": f"{method}",
+        "params": params,
+        "id": 1,
+    }
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception("Error sending JSON RPC request")
+  
 def get_price_from_mexc(ticker1, ticker2):
     #Price from MEXC
     mrkt_url = 'https://www.mexc.com/open/api/v2/market/ticker'
@@ -211,6 +231,51 @@ def update_tendermint_chain(chainname, apiurl, valoper, dataindex, denom, funcco
         print(f"{nowstring} : issue trying to update {chainname} data")
         print(e)
 
+def update_sui():
+    dataindex=17
+    denom="SUI"
+    chainname="Sui"
+    stakingrewardslugname="sui"
+    suirpc="https://sui-rpc-mainnet.testnet-pride.com"
+    validator_address = '0xd1dbb08191b4ae8e227935669c1862ba75a41cd7df5970002eafb2f365c32ed8'
+
+    print (f"Sui updates ...")
+    
+    # query validator informations
+    response=http_post_request("suix_getLatestSuiSystemState",[], suirpc)
+    activevalidators=response['result']['activeValidators']   
+    validator = [v for v in activevalidators if v.get('suiAddress') == validator_address][0]
+
+    # query validator apys
+    response=http_post_request("suix_getValidatorsApy",[], suirpc)
+    apys=response['result']['apys']   
+    apy = [v for v in apys if v.get('address') == validator_address][0]
+    
+    # update delegator numbers
+    datas["networks"][dataindex]['delegators'] = 1
+
+    # name update
+    datas["networks"][dataindex]['Validators'][0]['Name'] = validator['name']
+
+    # update APY
+    datas["networks"][dataindex]['APY'] = '%.2f' % (float(apy['apy']) * 100)
+
+    # fees update
+    datas["networks"][dataindex]['Fees'] = f"{float('%.2f' % float(validator['commissionRate'])) / 100}"
+    datas["networks"][dataindex]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(validator['commissionRate'])) / 100}"
+
+    #total delegation update stakingPoolSuiBalance 
+    datas["networks"][dataindex]['Total_delegation'] = f"{nano_to_none(int(validator['stakingPoolSuiBalance']))} {denom}"
+    datas["networks"][dataindex]['Validators'][0]['Delegation'] = f"{nano_to_none(int(validator['stakingPoolSuiBalance']))} {denom}"
+
+    # Update $$$
+    datas["networks"][dataindex]["balanceUsdTotal"] = nano_to_none(int(validator['stakingPoolSuiBalance'])) * float(datas["networks"][dataindex]["price"])
+
+    # create staking reward assets
+    json_asset=create_stakingreward_assets(chainname, stakingrewardslugname, nano_to_none(int(validator['stakingPoolSuiBalance'])),
+                    datas["networks"][dataindex]["balanceUsdTotal"], datas["networks"][dataindex]['delegators'],
+                    float(datas["networks"][dataindex]['Fees']) / 100, validator_address)
+    staking_data["supportedAssets"].append(json_asset)
 
 def get_solana_votes():
     try:
@@ -244,7 +309,7 @@ while 1:
         staking_data["supportedAssets"] = []
 
         # updating price from API
-        coinlist="harmony,solana,avalanche,the-graph,stafi,akash-network,umee,covalent,agoric,axelar,point-network,forta,arable-protocol,aleph-zero,aura-network"
+        coinlist="harmony,solana,avalanche,the-graph,stafi,akash-network,umee,covalent,agoric,axelar,point-network,forta,arable-protocol,aleph-zero,aura-network,sui"
         #uptick / quicksilver not supporter on CMC
         url=f"https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?slug={coinlist}&CMC_PRO_API_KEY={CMC_API_KEY}"
         allprice=http_json_call(url)
@@ -531,13 +596,17 @@ while 1:
         update_tendermint_chain("Aura", apiurl, valoper, dataindex, "Aura", funcconvert, stakingrewardslugname, datas)
 
         ###########################################################################
-        ###################### updating the uptick related data #####################
+        ###################### updating the uptick related data ###################
         apiurl="https://uptick.api.kjnodes.com"
         valoper="uptickvaloper1q8gmvc05t0yq2eg0g3plkcqlhy97mvk0533f2v"
         dataindex=16
         funcconvert=atto_to_none
         stakingrewardslugname="uptick" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
         update_tendermint_chain("Uptick", apiurl, valoper, dataindex, "Uptick", funcconvert, stakingrewardslugname, datas)
+
+        #####################################################################
+        ###################### updating the sui data ########################
+        update_sui()
 
         ###########################################################################
         ###################### updating the graph related data#####################
