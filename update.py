@@ -190,8 +190,11 @@ def create_solana_stakingreward_assets(all_vote_account, datas):
 # funcconvert is a func object
 # stakingrewardslugname depends on staking reward slug name (ie umee for Umee)
 # list of assets can be seen here https://api-beta.stakingrewards.com/v1/list/assets
-def update_tendermint_chain(chainname, apiurl, valoper, dataindex, denom, funcconvert, stakingrewardslugname, datas):
-    
+# datas is the pops API data
+# registry is the cosmos registry obtained from https://chains.cosmos.directory/
+def update_tendermint_chain(chainname, apiurl, valoper, dataindex, denom, funcconvert, stakingrewardslugname, datas, registry):
+    cosmosdirectorynotworking = ["axelar", "point"]
+
     print (f"{chainname} updates ...")
     try:
         # update delegator numbers
@@ -200,12 +203,19 @@ def update_tendermint_chain(chainname, apiurl, valoper, dataindex, denom, funcco
 
         network_stats = http_json_call(f"{apiurl}/cosmos/staking/v1beta1/validators/{valoper}")
         # fees/rate update
-        datas["networks"][dataindex]['Fees'] = f"{float('%.2f' % float(network_stats['validator']['commission']['commission_rates']['rate']))*100}"
-        datas["networks"][dataindex]['Validators'][0]['Fees'] =  f"{float('%.2f' % float(network_stats['validator']['commission']['commission_rates']['rate']))*100}"
+        valfee=float('%.2f' % float(network_stats['validator']['commission']['commission_rates']['rate']))*100
+        datas["networks"][dataindex]['Fees'] = f"{valfee}"
+        datas["networks"][dataindex]['Validators'][0]['Fees'] =  f"{valfee}"
 
         # update APY
-        #inflation_stats = http_json_call(f"{apiurl}/cosmos/mint/v1beta1/inflation")
-        #datas["networks"][dataindex]['APY'] = '%.2f' % (float(inflation_stats['inflation']) * 100)
+        chaininfo=next(chain for chain in registry["chains"] if chain["name"] == chainname.lower())
+        #print (chaininfo)
+        # skipped chain use the static data on data.json for the APR
+        if chainname.lower() not in cosmosdirectorynotworking and "calculated_apr" in chaininfo["params"]:
+            apr = chaininfo["params"]["calculated_apr"]
+            valapr='%.2f' % (100 * apr * ((1 - valfee / 100)))
+            datas["networks"][dataindex]['APY'] = valapr
+            print(f"{chainname} valapr is {valapr} with validator fee of {valfee} and calculated_apr of {apr}")
 
         # name update
         datas["networks"][dataindex]['Validators'][0]['Name'] = network_stats['validator']['description']['moniker']
@@ -326,6 +336,11 @@ while 1:
         with open('data.json', 'w') as outfile:
             json.dump(datas, outfile)
 
+
+        # Obtain cosmos registry data (ie we need it for APR calculation)
+        registry=http_json_call("https://chains.cosmos.directory/")
+        
+
         #########################################################################
         ###################### updating solana related data#####################
         try:
@@ -407,12 +422,12 @@ while 1:
 
         ###########################################################################
         ###################### updating Umee related data #####################
-        apiurl="http://val01.umee.m.pops.one:1317"
+        apiurl="http://val02-umee-m.pops.one:1317"
         valoper="umeevaloper14w3wm9wxvrfpr28keaswlwxvpjkyxnnsjcq4c6"
         dataindex=8
         funcconvert=micro_to_none
         stakingrewardslugname="umee"
-        update_tendermint_chain("Umee", apiurl, valoper, dataindex, "UMEE", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Umee", apiurl, valoper, dataindex, "UMEE", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating Axelar related data #####################
@@ -421,16 +436,16 @@ while 1:
         dataindex=7
         funcconvert=micro_to_none
         stakingrewardslugname="axelar"
-        update_tendermint_chain("Axelar", apiurl, valoper, dataindex, "AXL", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Axelar", apiurl, valoper, dataindex, "AXL", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating Agoric related data #####################
-        apiurl="http://val01.bld.m.pops.one:1317"
+        apiurl="http://val02-bld-m.pops.one:1317"
         valoper="agoricvaloper1c5vckuk54tapkzc3d0j9hegqpvgcz24jj3uzfv"
         dataindex=6
         funcconvert=micro_to_none
         stakingrewardslugname="agoric"
-        update_tendermint_chain("Agoric", apiurl, valoper, dataindex, "BLD", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Agoric", apiurl, valoper, dataindex, "BLD", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating Akash related data #####################
@@ -486,7 +501,7 @@ while 1:
         dataindex=10
         funcconvert=atto_to_none
         stakingrewardslugname="point"
-        update_tendermint_chain("Point", apiurl, valoper, dataindex, "POINT", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Point", apiurl, valoper, dataindex, "POINT", funcconvert, stakingrewardslugname, datas, registry)
 
         #########################################################################
         ###################### updating avax related data#######################
@@ -535,7 +550,7 @@ while 1:
         dataindex=12
         funcconvert=atto_to_none
         stakingrewardslugname="arable-protocol"
-        update_tendermint_chain("Arable", apiurl, valoper, dataindex, "ACRE", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Acrechain", apiurl, valoper, dataindex, "ACRE", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating the Quicksilver related data #####################
@@ -544,7 +559,7 @@ while 1:
         dataindex=14
         funcconvert=micro_to_none
         stakingrewardslugname="quicksilver" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
-        update_tendermint_chain("Quicksilver", apiurl, valoper, dataindex, "QCK", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Quicksilver", apiurl, valoper, dataindex, "QCK", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating Aleph Zero data #####################
@@ -593,7 +608,7 @@ while 1:
         dataindex=15
         funcconvert=micro_to_none
         stakingrewardslugname="aura-network" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
-        update_tendermint_chain("Aura", apiurl, valoper, dataindex, "Aura", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Aura", apiurl, valoper, dataindex, "Aura", funcconvert, stakingrewardslugname, datas, registry)
 
         ###########################################################################
         ###################### updating the uptick related data ###################
@@ -602,7 +617,7 @@ while 1:
         dataindex=16
         funcconvert=atto_to_none
         stakingrewardslugname="uptick" # temporary as slug is not yet in https://api-beta.stakingrewards.com/v1/list/assets
-        update_tendermint_chain("Uptick", apiurl, valoper, dataindex, "Uptick", funcconvert, stakingrewardslugname, datas)
+        update_tendermint_chain("Uptick", apiurl, valoper, dataindex, "Uptick", funcconvert, stakingrewardslugname, datas, registry)
 
         #####################################################################
         ###################### updating the sui data ########################
