@@ -429,6 +429,46 @@
 				"Delegation": "105240000 sui",
 				"Stake_link": "https://suiexplorer.com/validator/0xd1dbb08191b4ae8e227935669c1862ba75a41cd7df5970002eafb2f365c32ed8?network=mainnet"
 			}]
+		},
+		     {
+			"ID": "19",
+			"Active": true,
+			"Name": "Blast API",
+			"price": "0.75",
+			"APY": "8",
+			"Fees": "5",
+			"cmc_id": ,
+			"Info": "INFRA",
+			"Total_delegation": "20000 INFRA",
+			"Project_website": "blastapi.io",
+			"Project_documentations": ["https://docs.blastapi.io/blast-documentation/readme", "https://github.com/bwarelabs"],
+			"Validators": [{
+				"Address": "0x0ee88fadA319cbF26107be4bE87C6792EDEeB7b1",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "20000 INFRA",
+				"Stake_link": "https://blastapi.io/login?app=provider"
+			}]
+		},
+		{
+			"ID": "20",
+			"Active": true,
+			"Name": "Nolus",
+			"price": "0",
+			"APY": "12",
+			"Fees": "5",
+			"cmc_id": ,
+			"Info": "Nolus",
+			"Total_delegation": "6854238 NLS",
+			"Project_website": "https://nolus.io/",
+			"Project_documentations": ["https://docs-nolus-protocol.notion.site/Nolus-Protocol-Docs-a0ddfe091cc5456183417a68502705f8", "https://github.com/Nolus-Protocol"],
+			"Validators": [{
+				"Address": "nolusvaloper1dzyw04glsxpczw9yndeuy9hrjf5t9lyhw2sfhv",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "6854238 NLS",
+				"Stake_link": "https://explorer.nolus.io/pirin-1/staking/nolusvaloper1dzyw04glsxpczw9yndeuy9hrjf5t9lyhw2sfhv"
+			}]
 		}
 	]
 }
