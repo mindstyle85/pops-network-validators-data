@@ -439,14 +439,14 @@
 			"Fees": "5",
 			"cmc_id": 0,
 			"Info": "INFRA",
-			"Total_delegation": "20000 INFRA",
+			"Total_delegation": "47353 INFRA",
 			"Project_website": "blastapi.io",
 			"Project_documentations": ["https://docs.blastapi.io/blast-documentation/readme", "https://github.com/bwarelabs"],
 			"Validators": [{
 				"Address": "0x0ee88fadA319cbF26107be4bE87C6792EDEeB7b1",
 				"Name": "P-OPS TEAM",
 				"Fees": "5",
-				"Delegation": "20000 INFRA",
+				"Delegation": "47353 INFRA",
 				"Stake_link": "https://blastapi.io/login?app=provider"
 			}]
 		},
