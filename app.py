@@ -78,7 +78,23 @@ def networks_total_delegation():
         return jsonify(datas["global"]["networks_total_delegation"])
     except:
         abort(404, description="Error reading networks_total_delegation")
-      
+
+@app.route('/prices')
+def prices():
+    try:
+        datas = read_data()["networks"]
+        response = []
+        for network in datas:
+            response.append({
+                "Name": network["Name"],
+                "price": network["price"]
+            })
+        response = jsonify(response)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    except:
+        abort(404, description="Networks ressource not found")
+
 @app.route('/networks')
 def all():
     try:
