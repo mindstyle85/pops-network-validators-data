@@ -469,6 +469,46 @@
 				"Delegation": "6854238 NLS",
 				"Stake_link": "https://explorer.nolus.io/pirin-1/staking/nolusvaloper1dzyw04glsxpczw9yndeuy9hrjf5t9lyhw2sfhv"
 			}]
+		},
+		     {
+			"ID": "21",
+			"Active": true,
+			"Name": "Haqq Network",
+			"price": "0",
+			"APY": "24",
+			"Fees": "5",
+			"cmc_id": 0,
+			"Info": "ISLM",
+			"Total_delegation": "10 ISLM",
+			"Project_website": "https://haqq.network/",
+			"Project_documentations": ["https://docs.haqq.network/", "https://github.com/haqq-network"],
+			"Validators": [{
+				"Address": "haqqvaloper1xwwut6nrqmqqyv4w5an4x0zwr8vt7vy7s723s6",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "10 ISLM",
+				"Stake_link": "https://explorer.nodestake.top/haqq/staking/haqqvaloper1xwwut6nrqmqqyv4w5an4x0zwr8vt7vy7s723s6"
+			}]
+		},
+		{
+			"ID": "22",
+			"Active": true,
+			"Name": "Archway",
+			"price": "0",
+			"APY": "0",
+			"Fees": "5",
+			"cmc_id": 0,
+			"Info": "Archway",
+			"Total_delegation": "0 ARCH",
+			"Project_website": "https://archway.io/",
+			"Project_documentations": ["https://docs.archway.io/", "https://github.com/archway-network"],
+			"Validators": [{
+				"Address": "",
+				"Name": "P-OPS TEAM",
+				"Fees": "5",
+				"Delegation": "0 Arch",
+				"Stake_link": ""
+			}]
 		}
 	]
 }
