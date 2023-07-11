@@ -96,9 +96,9 @@
 			"ID": "4",
 			"Active": true,
 			"Name": "The Graph",
-			"price": "0.1",
-			"APY": "11",
-			"Fees": "15",
+			"price": "0.114",
+			"APY": "40",
+			"Fees": "12",
 			"cmc_id": 6719,
 			"Info": "The Graph insert description",
 			"Total_delegation": "29088066 GRT",
@@ -107,9 +107,16 @@
 			"Validators": [{
 				"Address": "0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7",
 				"Name": "p-ops.eth",
-				"Fees": "15",
-				"Delegation": "29088066 GRT",
-				"Stake_link": "https://network.thegraph.com/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7"
+				"Fees": "12",
+				"Delegation": "32729627 GRT",
+				"Stake_link": "https://network.thegraph.com/explorer/profile?id=0x1a99dd7d916117a523f3ce6510dcfd6bceab11e7&view=Indexing"
+			},
+			{
+				"Address": "0xfeff9093f6b32d0e5cddba743b06a1fedb87c004",
+				"Name": "p-ops2.eth",
+				"Fees": "2",
+				"Delegation": "1335704 GRT",
+				"Stake_link": "https://thegraph.com/explorer/profile/0xfeff9093f6b32d0e5cddba743b06a1fedb87c004?view=Indexing&show=Staking&chain=arbitrum-one"
 			}]
 		},
 		{
